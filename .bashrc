@@ -16,6 +16,7 @@ set -o vi
 # ALIASES
 alias ba='cd ~/Documents/Obsidian_Vault/Universität/6_BA/disturbed-pointing-experiment/ && conda activate levinenv'
 alias baa='cd ~/Documents/Obsidian_Vault/Universität/6_BA/disturbed-pointing-experiment/ && conda activate levinana && jupyter notebook Analysis.ipynb'
+alias gitsu='git status --untracked-files=no'
 
 # PATHS
 export PATH="/home/croniev/MPS 2021.2/bin:$PATH"
