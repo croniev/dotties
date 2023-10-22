@@ -28,6 +28,7 @@ export cognicrypt_path="/home/croniev/Documents/Obsidian_Vault/Universität/5_BP
 export PATH="/home/croniev/Downloads/lilypond-2.24.0/bin:$PATH"
 export PATH="/usr/local/texlive/2023/bin/x86_64-linux:$PATH"
 export PATH="/home/croniev/.cargo/bin/exa:$PATH"
+export PATH="/usr/local/bin/node:$PATH"
 # -----------------------------------------------------------------------------------------------------------------
 
 # don't put duplicate lines or lines starting with space in the history.
