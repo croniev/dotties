@@ -1,0 +1,17 @@
+[user]
+	email = croniev.git@runbox.com
+	name = croniev
+[credential]
+	helper = store
+[push]
+	default = current
+[pull]
+	default = current
+	rebase = true
+[core]
+	autocrlf = input
+[alias]
+	lola = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
+	lol = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	co = checkout
+	su = status --untracked-files=no
