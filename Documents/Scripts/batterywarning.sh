@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export $(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pgrep -u $LOGNAME gnome-session | head -n 1)/environ | tr '\0' '\n')
+export $(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pgrep -u croniev cinnamon-sessio | head -n 1)/environ | tr '\0' '\n')
 
 BATTERY_PATH=$(upower -e | grep battery)
 echo $BATTERY_PATH
@@ -14,14 +14,14 @@ echo $CABLE_PLUGGED
 if [[ $CABLE_PLUGGED == 'no' ]]; then
 
     if [[ $BATTERY_PERCENTAGE -lt 23 ]]; then
-        zenity --warning --title "Battery Low" --text "Low battery ($BATTERY_PERCENTAGE)"
+        zenity --warning --title "Battery Low" --text "Low battery ($BATTERY_PERCENTAGE)" --display=:0.0
     fi
 
 
 else
 
     if [[ $BATTERY_PERCENTAGE -gt 93 ]]; then
-        zenity --warning --title "Battery Full" --text "Fully charged ($BATTERY_PERCENTAGE)"
+        zenity --warning --title "Battery Full" --text "Fully charged ($BATTERY_PERCENTAGE)" --display=:0.0
     fi
 
 fi

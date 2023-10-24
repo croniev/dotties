@@ -12,6 +12,7 @@ esac
 # ------------------------------------------------------------------------------------------------------------------
 # COMMANDS
 set -o vi
+xhost local:$USER > /dev/null # allow zenity to access screen (cron batterywarning)
 
 # ALIASES
 alias ba='cd ~/Documents/Obsidian_Vault/Universität/6_BA/disturbed-pointing-experiment/ && conda activate levinenv'
@@ -22,13 +23,6 @@ alias lsa='exa --icons -lah'
 alias lst='exa --icons --tree'
 alias lsta='exa --icons --tree --long'
 
-# PATHS
-export PATH="/home/croniev/MPS 2021.2/bin:$PATH"
-export cognicrypt_path="/home/croniev/Documents/Obsidian_Vault/Universität/5_BP/CryptoAnalysis-2.8.0-SNAPSHOT-jar-with-dependencies.jar"
-export PATH="/home/croniev/Downloads/lilypond-2.24.0/bin:$PATH"
-export PATH="/usr/local/texlive/2023/bin/x86_64-linux:$PATH"
-export PATH="/home/croniev/.cargo/bin/exa:$PATH"
-export PATH="/usr/local/bin/node:$PATH"
 # -----------------------------------------------------------------------------------------------------------------
 
 # don't put duplicate lines or lines starting with space in the history.
