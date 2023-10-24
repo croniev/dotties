@@ -22,6 +22,7 @@ alias ls='exa --icons --group-directories-first'
 alias lsa='exa --icons -lah'
 alias lst='exa --icons --tree'
 alias lsta='exa --icons --tree --long'
+alias dotties='/usr/bin/git --git-dir=$HOME/dotties.git/ --work-tree=$HOME'
 
 # -----------------------------------------------------------------------------------------------------------------
 
