@@ -34,6 +34,7 @@ export PATH="/usr/local/texlive/2023/bin/x86_64-linux:$PATH"
 export PATH="/home/croniev/.cargo/bin/exa:$PATH"
 export PATH="/usr/local/bin/node:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="/usr/bin:$PATH"
 
 # Startup commands
 rfkill block bluetooth
