@@ -19,6 +19,15 @@ require'nvim-treesitter.configs'.setup {
         -- Instead of true it can also be a list of languages
         additional_vim_regex_highlighting = false,
     },
+    indent = {
+        enable = true,
+    },
+    playground = {
+        enable = true,
+        disable = {},
+        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+        persist_queries = false, -- Whether the query persists across vim sessions
+    },
     hijack_directories = {
         enable = true,
         auto_open = true,

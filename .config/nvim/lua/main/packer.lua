@@ -39,27 +39,9 @@ return require('packer').startup(function(use)
     })
 
 
-    use({
-        "nvim-treesitter/nvim-treesitter",
-        config = function()
-            require("nvim-treesitter.configs").setup({
-                -- ensure_installed = "maintained",
-                highlight = {
-                    enable = true,
-                },
-                indent = {
-                    enable = true,
-                },
-                playground = {
-                    enable = true,
-                    disable = {},
-                    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-                    persist_queries = false, -- Whether the query persists across vim sessions
-                },
-            })
-        end,
-    })
+    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
     use("nvim-treesitter/playground")
+    use "p00f/nvim-ts-rainbow" -- color for parenthesis
     use("theprimeagen/harpoon")
     use("theprimeagen/refactoring.nvim")
     use("mbbill/undotree")
