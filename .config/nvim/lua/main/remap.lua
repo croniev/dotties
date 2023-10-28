@@ -3,8 +3,9 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- cd into active dir and move up one dir
-vim.keymap.set("n", "<leader>cd", ":cd %:h<cr>")
-vim.keymap.set("n", "<leader><up>", ":cd ..<cr>")
+vim.keymap.set("n", "<leader>cd", ":cd %:h<cr>i<esc>")
+vim.keymap.set("n", "<A-up>", ":cd ..<cr>i<esc>")
+vim.keymap.set("n", "<A-down>", ":CdParentUnderPwd<CR>i<Esc>")
 
 vim.keymap.set("n", "<C-a>", "m1GVgg") -- select all
 -- Be able to move selected block up and down
@@ -27,7 +28,7 @@ vim.keymap.set("n", "<A-h>", "<C-w>h")
 vim.keymap.set("n", "<A-j>", "<C-w>j")
 vim.keymap.set("n", "<A-k>", "<C-w>k")
 vim.keymap.set("n", "<A-v>", "<C-w>v<C-w>l")
-vim.keymap.set("n", "<A-s>", "<C-w>s<C-w>j")
+vim.keymap.set("n", "<A-x>", "<C-w>s<C-w>j")
 vim.keymap.set("n", "<C-q>", "<C-w>q")
 
 -- Tabs
