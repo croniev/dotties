@@ -12,8 +12,12 @@ lsp.configure('lua-language-server', {
     settings = {
         Lua = {
             diagnostics = {
-                globals = { 'vim' }
-            }
+                globals = { 'vim' },
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
         }
     }
 })
@@ -32,6 +36,17 @@ lsp.configure('pylsp', {
     }
   }
 })
+
+require('lspconfig').clangd.setup {
+  on_attach = function(client, buffer)
+    vim.api.nvim_create_autocmd("LspTokenUpdate", {
+      buffer = buffer,
+      callback = show_unconst_caps,
+    })
+
+    -- other on_attach logic
+  end
+}
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}

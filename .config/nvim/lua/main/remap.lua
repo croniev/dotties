@@ -33,7 +33,6 @@ vim.keymap.set("n", "<C-q>", "<C-w>q")
 
 -- Tabs
 vim.keymap.set("n", "<C-t>", ":tabnew <CR>")
-vim.keymap.set("n", "<C-Tab>", "g<Tab>")
 vim.keymap.set("n", "<A-1>", ":tabnext 1 <CR>")
 vim.keymap.set("n", "<A-2>", ":tabnext 2 <CR>")
 vim.keymap.set("n", "<A-3>", ":tabnext 3 <CR>")
