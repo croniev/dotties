@@ -19,7 +19,7 @@ alias ba='cd ~/Documents/Obsidian_Vault/Universität/6_BA/disturbed-pointing-exp
 alias baa='cd ~/Documents/Obsidian_Vault/Universität/6_BA/disturbed-pointing-experiment/ && conda activate levinana && jupyter notebook Analysis.ipynb'
 
 alias ls='exa --icons --group-directories-first'
-alias lsa='exa --icons -lah'
+alias lsa='exa --icons -lah --group-directories-first'
 alias lst='exa --icons --tree'
 alias lsta='exa --icons --tree --long'
 alias dots='/usr/bin/git --git-dir=$HOME/dotties.git/ --work-tree=$HOME'
