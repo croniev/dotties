@@ -28,12 +28,6 @@ require'nvim-treesitter.configs'.setup {
         -- colors = {}, -- table of hex strings
         -- termcolors = {} -- table of colour name strings
     },
-    playground = {
-        enable = true,
-        disable = {},
-        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-        persist_queries = false, -- Whether the query persists across vim sessions
-    },
     matchup = {
         enable = true,
         -- disable = {},
@@ -42,6 +36,9 @@ require'nvim-treesitter.configs'.setup {
         enable = true,
         auto_open = true,
     },
+    autotag = {
+        enable = true,
+    }
 }
 require'treesitter-context'.setup{
     enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)

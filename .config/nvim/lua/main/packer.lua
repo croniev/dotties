@@ -39,7 +39,7 @@ return require('packer').startup(function(use)
 
     -- NOTE: Files
     use { 'nvim-telescope/telescope.nvim', tag = '0.1.4',
-        requires = { {'nvim-lua/plenary.nvim'} },
+        requires = { { 'nvim-lua/plenary.nvim' } },
         file_ignore_patterns = { ".aux" } }
 
     use("theprimeagen/harpoon")
@@ -49,48 +49,62 @@ return require('packer').startup(function(use)
         config = function() require("nvim-tree").setup {} end }
 
     -- NOTE: Highlighting
-    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
-    use "nvim-treesitter/playground"
+    use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
     use "nvim-treesitter/nvim-treesitter-context"
-    use "p00f/nvim-ts-rainbow" -- color for parenthesis
-    use "andymass/vim-matchup" -- klammern
-    use { "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" } -- To-do comments TODO: Get icons working correctly
-    use "RRethy/vim-illuminate" -- highlight other uses of the word
+    use "p00f/nvim-ts-rainbow"                                             -- color for parenthesis
+    use "andymass/vim-matchup"                                             -- klammern
+    use "windwp/nvim-ts-autotag"                                           -- close HTML brackets
+    use { "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" } -- To-do comments
+    -- use "RRethy/vim-illuminate"                                            -- highlight other uses of the word -- Macht nvim sehr langsam lol
 
     -- NOTE: Semantics
     use { 'VonHeikemen/lsp-zero.nvim', branch = 'v1.x', requires = {
-            -- LSP Support
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
-            -- Autocompletion
-            {'hrsh7th/nvim-cmp'}, -- completion plugin
-            {'hrsh7th/cmp-buffer'}, -- buffer completion
-            {'hrsh7th/cmp-path'}, -- path completion
-            {'saadparwaiz1/cmp_luasnip'}, -- snippet completion
-            {'hrsh7th/cmp-nvim-lsp'}, -- cmdline completions
-            {'hrsh7th/cmp-nvim-lua'}, -- cmdline completions
-            {'hrsh7th/cmp-cmdline'}, -- cmdline completions
-            -- Snippets
-            {'L3MON4D3/LuaSnip'},
-            {'rafamadriz/friendly-snippets'}, -- premade collection of snippets
+        -- LSP Support
+        { 'neovim/nvim-lspconfig' },
+        { 'williamboman/mason.nvim' },
+        { 'williamboman/mason-lspconfig.nvim' },
+        -- Autocompletion
+        { 'hrsh7th/nvim-cmp' },         -- completion plugin
+        { 'hrsh7th/cmp-buffer' },       -- buffer completion
+        { 'hrsh7th/cmp-path' },         -- path completion
+        { 'saadparwaiz1/cmp_luasnip' }, -- snippet completion
+        { 'hrsh7th/cmp-nvim-lsp' },     -- cmdline completions
+        { 'hrsh7th/cmp-nvim-lua' },     -- cmdline completions
+        { 'hrsh7th/cmp-cmdline' },      -- cmdline completions
+        -- Snippets
+        { 'L3MON4D3/LuaSnip' },
+        { 'rafamadriz/friendly-snippets' }, -- premade collection of snippets
     } }
 
     -- NOTE: Writing
-    use("lervag/vimtex") --latex
-    use {'numToStr/Comment.nvim', config = function() require('Comment').setup() end } --Toggle comments
-    -- HACK: plugin for CSS: https://github.com/rstacruz/vim-hyperstyle 
-    use('rstacruz/vim-closer') -- Automatically close brackets 
-    use({ "kylechui/nvim-surround", -- commands for adding and removing brackets and quotes
-        tag = "*", config = function()
+    use("lervag/vimtex")                                                                               --latex
+    use { 'numToStr/Comment.nvim', config = function() require('Comment').setup({ ignore = '^$' }) end } --Toggle comments
+    use 'rstacruz/vim-hyperstyle'
+    use 'jiangmiao/auto-pairs' -- Automatically close brackets etc.
+    use({
+        "kylechui/nvim-surround",                                                                      -- commands for adding and removing brackets and quotes
+        tag = "*",
+        config = function()
             require("nvim-surround").setup({
-                move_cursor = false, }) end })
+                move_cursor = false, })
+        end
+    })
+    use { "nat-418/boole.nvim", config = function() -- Increment not just numbers but also bools and dates
+        require('boole').setup()
+    end }
 
     -- NOTE: Workflow
     use("mbbill/undotree")
-    -- GIT 
-    use {'lewis6991/gitsigns.nvim'}
-    use {'akinsho/git-conflict.nvim', tag = "*", config = function() require('git-conflict').setup() end}
+    -- GIT
+    use { 'lewis6991/gitsigns.nvim' }
+    use { 'akinsho/git-conflict.nvim', tag = "*", config = function() require('git-conflict').setup() end }
+    -- DEBUGGING
+    use 'mfussenegger/nvim-dap'
+    use 'rcarriga/nvim-dap-ui'
+    use {'theHamsta/nvim-dap-virtual-text', config = function() require('nvim-dap-virtual-text').setup() end }
+    use {'mfussenegger/nvim-dap-python',
+        config = function() require('dap-python').setup('~/.virtualenv/debugpy/bin/python') end }
+    use 'ofirgall/goto-breakpoints.nvim'
 
     -- NOTE: Style
     use 'folke/tokyonight.nvim'
@@ -98,7 +112,7 @@ return require('packer').startup(function(use)
     -- NOTE: Not sure
     use{ "folke/trouble.nvim",
         config = function() require("trouble").setup {
-                icons = false, } end }
+                icons = true, } end }
 
     use("theprimeagen/refactoring.nvim")
     use("tpope/vim-fugitive")
@@ -106,5 +120,4 @@ return require('packer').startup(function(use)
     use("github/copilot.vim")
     use("eandrju/cellular-automaton.nvim")
     use("laytan/cloak.nvim")
-
 end)

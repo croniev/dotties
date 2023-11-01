@@ -55,3 +55,7 @@ local links = {
 for newgroup, oldgroup in pairs(links) do
   vim.api.nvim_set_hl(0, newgroup, { link = oldgroup, default = true })
 end
+
+vim.api.nvim_set_hl(0, '@lsp.typemod.parameter', { italic=true})
+
+vim.g.python3_host_prog = "/home/croniev/anaconda3/bin/python3" -- support for python plugins
