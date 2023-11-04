@@ -11,7 +11,7 @@ echo $BATTERY_PERCENTAGE
 CABLE_PLUGGED=$(upower -i $LINE_POWER_PATH | grep -A2 'line-power' | grep online | awk '{ print $2 }')
 echo $CABLE_PLUGGED
 
-if (cinnamon-screensaver-command -q | grep "is active"); then
+if !(cinnamon-screensaver-command -q | grep "is active"); then
     if [[ $CABLE_PLUGGED == 'no' ]]; then
 
         if [[ $BATTERY_PERCENTAGE -lt 23 ]]; then
