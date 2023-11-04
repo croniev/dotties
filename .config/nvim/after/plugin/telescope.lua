@@ -10,7 +10,8 @@ require'telescope'.setup {
                 ["<C-n>"] = {actions.cycle_history_next, type = "action", opts = { nowait = true, silent = true }},
                 ["<C-p>"] = {actions.cycle_history_prev, type = "action", opts = { nowait = true, silent = true }},
             }
-        }
+        },
+        file_ignore_patterns = { ".aux", "%.pyc" },
     }
 }
 

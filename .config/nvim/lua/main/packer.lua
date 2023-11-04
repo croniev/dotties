@@ -39,14 +39,10 @@ return require('packer').startup(function(use)
 
     -- NOTE: Files
     use { 'nvim-telescope/telescope.nvim', tag = '0.1.4',
-        requires = { { 'nvim-lua/plenary.nvim' } },
-        file_ignore_patterns = { ".aux" } }
-
+        requires = {  'nvim-lua/plenary.nvim'  } }
     use("theprimeagen/harpoon")
-
     use { 'nvim-tree/nvim-tree.lua',
-        requires = { 'nvim-tree/nvim-web-devicons', },
-        config = function() require("nvim-tree").setup {} end }
+        requires = { 'nvim-tree/nvim-web-devicons', },}
 
     -- NOTE: Highlighting
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
