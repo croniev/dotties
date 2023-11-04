@@ -77,12 +77,13 @@ return require('packer').startup(function(use)
     } }
 
     -- NOTE: Writing
-    use("lervag/vimtex")                                                                               --latex
+    use("lervag/vimtex")                                                                                 --latex
     use { 'numToStr/Comment.nvim', config = function() require('Comment').setup({ ignore = '^$' }) end } --Toggle comments
     use 'rstacruz/vim-hyperstyle'
-    use 'jiangmiao/auto-pairs' -- Automatically close brackets etc.
+    -- use 'jiangmiao/auto-pairs' -- Automatically close brackets etc.
+    use 'windwp/nvim-autopairs'
     use({
-        "kylechui/nvim-surround",                                                                      -- commands for adding and removing brackets and quotes
+        "kylechui/nvim-surround", -- commands for adding and removing brackets and quotes
         tag = "*",
         config = function()
             require("nvim-surround").setup({
@@ -100,24 +101,36 @@ return require('packer').startup(function(use)
     use { 'akinsho/git-conflict.nvim', tag = "*", config = function() require('git-conflict').setup() end }
     -- DEBUGGING
     use 'mfussenegger/nvim-dap'
-    use 'rcarriga/nvim-dap-ui'
-    use {'theHamsta/nvim-dap-virtual-text', config = function() require('nvim-dap-virtual-text').setup() end }
-    use {'mfussenegger/nvim-dap-python',
-        config = function() require('dap-python').setup('~/.virtualenv/debugpy/bin/python') end }
-    use 'ofirgall/goto-breakpoints.nvim'
+    use 'rcarriga/nvim-dap-ui'                                                                                  -- Shortcuts for displaying all dap elements
+    use { 'theHamsta/nvim-dap-virtual-text', config = function() require('nvim-dap-virtual-text').setup() end } -- Show values of variables inline during debugging
+    use { 'mfussenegger/nvim-dap-python',
+        config = function() require('dap-python').setup('~/.venv/debugpy/bin/python') end }
+    use 'ofirgall/goto-breakpoints.nvim' -- Jump between breakpoints
+    -- TODO: this plugin is not working
+    -- use {'Weissle/persistent-breakpoints.nvim', config = function() require('persistent-breakpoints') -- Save and load breakpoints on document close and open
+    --     .setup{load_breakpoints_event = { "BufReadPost" }} end }
+    --  TESTING
+    use { "nvim-neotest/neotest",
+        requires = { "nvim-lua/plenary.nvim", "antoinemadec/FixCursorHold.nvim" } }
+    use 'nvim-neotest/neotest-python'
+    use{ "andythigpen/nvim-coverage", requires = "nvim-lua/plenary.nvim", }
 
     -- NOTE: Style
+    use 'nvim-tree/nvim-web-devicons'
     use 'folke/tokyonight.nvim'
+    use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } }
 
     -- NOTE: Not sure
-    use{ "folke/trouble.nvim",
-        config = function() require("trouble").setup {
-                icons = true, } end }
+    use { "folke/trouble.nvim",
+        config = function()
+            require("trouble").setup {
+                icons = true, }
+        end }
 
     use("theprimeagen/refactoring.nvim")
     use("tpope/vim-fugitive")
     use("folke/zen-mode.nvim")
-    use("github/copilot.vim")
+    -- use("github/copilot.vim")
     use("eandrju/cellular-automaton.nvim")
     use("laytan/cloak.nvim")
 end)

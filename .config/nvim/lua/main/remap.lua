@@ -1,80 +1,87 @@
-vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+local map = vim.keymap.set
+local opts = { noremap = true, silent = true }
+local opts_loud = { noremap = true, silent = false }
 
-vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so") end) -- Source
+vim.g.mapleader = " "
+map("n", "<leader>pv", vim.cmd.Ex, opts)
+
+map("n", "<leader><leader>", function() vim.cmd("so") end) -- Source
+
+-- help
+map("n", "<leader>h", 'yiw:h <C-r>"<CR>')
+map("n", "<leader>H", 'yiw:helpgrep <C-r>"<CR>')
+map("v", "<leader>h", 'y<ESC>:h <C-r>"<CR>')
+map("v", "<leader>H", 'y<ESC>:helpgrep <C-r>"<CR>')
 
 -- cd into active dir and move up one dir
-vim.keymap.set("n", "<leader>cd", ":cd %:h<cr>i<esc>")
-vim.keymap.set("n", "<A-up>", ":cd ..<cr>i<esc>")
-vim.keymap.set("n", "<A-down>", ":CdParentUnderPwd<CR>i<Esc>")
+map("n", "<leader>cd", ":cd %:h<cr>i<esc>", opts)
+map("n", "<A-up>", ":cd ..<cr>i<esc>", opts)
+map("n", "<A-down>", ":CdParentUnderPwd<CR>i<Esc>", opts)
 
-vim.keymap.set("n", "ga", "m1GVgg") -- select all
 -- Be able to move selected block up and down
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+map("v", "J", ":m '>+1<CR>gv=gv", opts)
+map("v", "K", ":m '<-2<CR>gv=gv", opts)
 -- Stay in selection after indent/undent
-vim.keymap.set("v", "<", "<gv")
-vim.keymap.set("v", ">", ">gv")
+map("v", "<", "<gv", opts)
+map("v", ">", ">gv", opts)
 
 -- centering sachen
-vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
-
+map("n", "J", "mzJ`z", opts)
+map("n", "<C-d>", "<C-d>zz", opts)
+map("n", "<C-u>", "<C-u>zz", opts)
+map("n", "n", "nzzzv", opts)
+map("n", "N", "Nzzzv", opts)
+--
 -- Window movement
-vim.keymap.set("n", "<A-l>", "<C-w>l")
-vim.keymap.set("n", "<A-h>", "<C-w>h")
-vim.keymap.set("n", "<A-j>", "<C-w>j")
-vim.keymap.set("n", "<A-k>", "<C-w>k")
-vim.keymap.set("n", "<A-v>", "<C-w>v<C-w>l")
-vim.keymap.set("n", "<A-x>", "<C-w>s<C-w>j")
-vim.keymap.set("n", "<C-q>", "<C-w>q")
+map("n", "<A-l>", "<C-w>l", opts)
+map("n", "<A-h>", "<C-w>h", opts)
+map("n", "<A-j>", "<C-w>j", opts)
+map("n", "<A-k>", "<C-w>k", opts)
+map("n", "<A-v>", "<C-w>v<C-w>l", opts)
+map("n", "<A-x>", "<C-w>s<C-w>j", opts)
+map("n", "<C-q>", "<C-w>q", opts)
 
 -- Tabs
-vim.keymap.set("n", "<C-t>", ":tabnew <CR>")
-vim.keymap.set("n", "<A-1>", ":tabnext 1 <CR>")
-vim.keymap.set("n", "<A-2>", ":tabnext 2 <CR>")
-vim.keymap.set("n", "<A-3>", ":tabnext 3 <CR>")
-vim.keymap.set("n", "<A-4>", ":tabnext 4 <CR>")
-vim.keymap.set("n", "<A-5>", ":tabnext 5 <CR>")
+map("n", "<C-t>", ":tabnew <CR>", opts)
+map("n", "<A-1>", ":tabnext 1 <CR>", opts)
+map("n", "<A-2>", ":tabnext 2 <CR>", opts)
+map("n", "<A-3>", ":tabnext 3 <CR>", opts)
+map("n", "<A-4>", ":tabnext 4 <CR>", opts)
+map("n", "<A-5>", ":tabnext 5 <CR>", opts)
 
--- greatest remap ever
--- ????
-vim.keymap.set("x", "<leader>p", [["_dP]])
+-- copying and pasting
+map("x", "<leader>p", [["_dP]], opts) -- overpaste without copying what is deleted
+-- yank into external clipboard
+map({ "n", "v" }, "<leader>y", [["+y]], opts)
+map("n", "<leader>Y", [["+Y]], opts)
+map({ "n", "v" }, "<leader>d", [["_d]], opts) -- deleted stuff does not go into buffer
 
--- next greatest remap ever : asbjornHaland
--- ???
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
--- deleted stuff does not go into buffer
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+-- Primagen stuff
+map("i", "<C-c>", "<Esc>", opts)
+map("n", "Q", "<nop>", opts)
+map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", opts)
 
--- This is going to get me cancelled
-vim.keymap.set("i", "<C-c>", "<Esc>")
+-- quickfix list
+map("n", "<C-k>", "<cmd>cnext<CR>zz", opts)
+map("n", "<C-j>", "<cmd>cprev<CR>zz", opts)
+map("n", "<leader>k", "<cmd>lnext<CR>zz", opts) -- only list in current filej
+map("n", "<leader>j", "<cmd>lprev<CR>zz", opts)
+map("n", "<leader>c", "<cmd>cexpr []<CR>", opts)
 
-vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+-- Terminal and file execution
+map("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })                -- make the file execcutable
+-- TODO: anpassen an toggleterm/floatterm
+map("n", "<leader>r", ":RunInTerminal<CR>", opts)                               -- Launch code
+map("n", "<A-t>", ":tabnew<CR>:term<CR>i", opts)
+map("n", "<C-C>", "i<C-c>", opts)                                               -- terminate fg terminal job
+map('t', "<ESC>", '<C-\\><C-n>', opts)                                          -- Exit terminal with ESC
 
--- unsure what cnext, cprev, lnext and lprev do
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+map("n", "<leader>pac", "<cmd>e ~/.config/nvim/lua/main/packer.lua<CR>", opts); -- open packer file
+map("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>", opts);        -- find out ;, opts)
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]) -- rename what is under the cursor
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })              -- make the file execcutable
-
--- Execute file
-vim.keymap.set("n", "<leader>r", ":RunInTerminal<CR>")                               -- Python
-vim.keymap.set("n", "<C-C>", "i<C-c>:sleep 1<cr>i")                               -- Python
-vim.keymap.set('t', "<ESC>", '<C-\\><C-n>')
-
-vim.keymap.set("n", "<leader>pac", "<cmd>e ~/.config/nvim/lua/main/packer.lua<CR>"); -- open packer file
-vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");        -- find out ;)
-
-vim.keymap.set("n", "<C-a>", ":Boole increment<CR>")
-vim.keymap.set("n", "<C-x>", ":Boole decrement<CR>")
--- vim.keymap.set("i", "<C-k>", "<cmd>lua require 'main.keymapfunctions'.luasnipchoose(-1)<cr>")
--- vim.keymap.set("i", "<C-j>", "<cmd>lua require 'main.keymapfunctions'.luasnipchoose(1)<cr>")
+-- Quick edits
+map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], opts_loud) -- rename what is under the cursor
+map("n", "<C-a>", ":Boole increment<CR>", opts)
+map("n", "<C-x>", ":Boole decrement<CR>", opts)
+-- map("i", "<C-k>", "<cmd>lua require 'main.keymapfunctions'.luasnipchoose(-1)<cr>", opts)
+-- map("i", "<C-j>", "<cmd>lua require 'main.keymapfunctions'.luasnipchoose(1)<cr>", opts)

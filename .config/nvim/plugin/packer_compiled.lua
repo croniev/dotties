@@ -80,15 +80,15 @@ _G.packer_plugins = {
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/Comment.nvim",
     url = "https://github.com/numToStr/Comment.nvim"
   },
+  ["FixCursorHold.nvim"] = {
+    loaded = true,
+    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/FixCursorHold.nvim",
+    url = "https://github.com/antoinemadec/FixCursorHold.nvim"
+  },
   LuaSnip = {
     loaded = true,
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
-  },
-  ["auto-pairs"] = {
-    loaded = true,
-    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/auto-pairs",
-    url = "https://github.com/jiangmiao/auto-pairs"
   },
   ["boole.nvim"] = {
     config = { "\27LJ\2\0023\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nboole\frequire\0" },
@@ -136,11 +136,6 @@ _G.packer_plugins = {
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
-  ["copilot.vim"] = {
-    loaded = true,
-    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/copilot.vim",
-    url = "https://github.com/github/copilot.vim"
-  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/friendly-snippets",
@@ -172,6 +167,11 @@ _G.packer_plugins = {
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
     url = "https://github.com/VonHeikemen/lsp-zero.nvim"
   },
+  ["lualine.nvim"] = {
+    loaded = true,
+    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/lualine.nvim",
+    url = "https://github.com/nvim-lualine/lualine.nvim"
+  },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
@@ -182,10 +182,30 @@ _G.packer_plugins = {
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
+  neotest = {
+    loaded = true,
+    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/neotest",
+    url = "https://github.com/nvim-neotest/neotest"
+  },
+  ["neotest-python"] = {
+    loaded = true,
+    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/neotest-python",
+    url = "https://github.com/nvim-neotest/neotest-python"
+  },
+  ["nvim-autopairs"] = {
+    loaded = true,
+    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
+    url = "https://github.com/windwp/nvim-autopairs"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
+  },
+  ["nvim-coverage"] = {
+    loaded = true,
+    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/nvim-coverage",
+    url = "https://github.com/andythigpen/nvim-coverage"
   },
   ["nvim-dap"] = {
     loaded = true,
@@ -193,7 +213,7 @@ _G.packer_plugins = {
     url = "https://github.com/mfussenegger/nvim-dap"
   },
   ["nvim-dap-python"] = {
-    config = { "\27LJ\2\2]\0\0\2\0\4\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0'\1\3\0B\0\2\1K\0\1\0%~/.virtualenv/debugpy/bin/python\nsetup\15dap-python\frequire\0" },
+    config = { "\27LJ\2\2W\0\0\2\0\4\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0'\1\3\0B\0\2\1K\0\1\0\31~/.venv/debugpy/bin/python\nsetup\15dap-python\frequire\0" },
     loaded = true,
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/nvim-dap-python",
     url = "https://github.com/mfussenegger/nvim-dap-python"
@@ -340,7 +360,7 @@ try_loadstring("\27LJ\2\0023\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\
 time([[Config for boole.nvim]], false)
 -- Config for: nvim-dap-python
 time([[Config for nvim-dap-python]], true)
-try_loadstring("\27LJ\2\2]\0\0\2\0\4\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0'\1\3\0B\0\2\1K\0\1\0%~/.virtualenv/debugpy/bin/python\nsetup\15dap-python\frequire\0", "config", "nvim-dap-python")
+try_loadstring("\27LJ\2\2W\0\0\2\0\4\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0'\1\3\0B\0\2\1K\0\1\0\31~/.venv/debugpy/bin/python\nsetup\15dap-python\frequire\0", "config", "nvim-dap-python")
 time([[Config for nvim-dap-python]], false)
 -- Config for: nvim-tree.lua
 time([[Config for nvim-tree.lua]], true)
