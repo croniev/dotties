@@ -11,7 +11,9 @@ vim.api.nvim_create_user_command('CdParentUnderPwd',
                 newd = pwd
             end
         end
-        vim.cmd("cd " .. newd)
+        if newd ~= nil then
+            vim.cmd("cd " .. newd)
+        end
     end,
     {})
 

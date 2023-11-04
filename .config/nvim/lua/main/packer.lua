@@ -117,11 +117,11 @@ return require('packer').startup(function(use)
     use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } }
 
     -- NOTE: Not sure
-    use { "folke/trouble.nvim",
-        config = function()
-            require("trouble").setup {
-                icons = true, }
-        end }
+    -- use { "folke/trouble.nvim",
+    --     config = function()
+    --         require("trouble").setup {
+    --             icons = true, }
+    --     end }
 
     use("theprimeagen/refactoring.nvim")
     use("tpope/vim-fugitive")
