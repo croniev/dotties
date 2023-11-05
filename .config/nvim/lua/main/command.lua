@@ -4,9 +4,9 @@ vim.api.nvim_create_user_command('CdParentUnderPwd',
         local pwd = vim.fn.expand('%:h')
         local newd = nil
         if pwd ~= "." then
-            local i,j = pwd:find ".-/"
+            local i,j = tostring(pwd):find ".-/"
             if i ~= nil then
-                newd = string.sub(pwd, i, j-1)
+                newd = string.sub(tostring(pwd), i, j-1)
             else
                 newd = pwd
             end

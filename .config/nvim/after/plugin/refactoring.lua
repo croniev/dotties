@@ -7,9 +7,9 @@ map("x", "<leader>re", function() require('refactoring').refactor('Extract Funct
 -- Extract function supports only visual mode
 map("x", "<leader>rv", function() require('refactoring').refactor('Extract Variable') end, opts)
 -- Extract variable supports only visual mode
-map("n", "<leader>rI", function() require('refactoring').refactor('Inline Function') end, opts)
+map("n", "<leader>rF", function() require('refactoring').refactor('Inline Function') end, opts)
 -- Inline func supports only normal
-map({ "n", "x" }, "<leader>ri", function() require('refactoring').refactor('Inline Variable') end, opts)
+map({ "n", "x" }, "<leader>rV", function() require('refactoring').refactor('Inline Variable') end, opts)
 -- Inline var supports both normal and visual mode
 
 map("n", "<leader>rb", function() require('refactoring').refactor('Extract Block') end, opts)

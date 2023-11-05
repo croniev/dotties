@@ -143,7 +143,7 @@ local mappings = {
         k = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
         L = { "<<cmd>lua vim.diagnostic.open_float()<CR>", "float Diagnostic" },
         -- l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-        q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
+        q = { "<cmd>lua vim.diagnostic.setqflist()<cr>", "Quickfix" },
         R = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
         r = { "<cmd>lua vim.lsp.buf.references()<CR>", "References" },
         s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
@@ -198,15 +198,6 @@ local vmappings = {
         name = "Folds",
         f = { ":'<,'>fold<CR>", "create Fold" },
     },
-    c = {
-        name = "Comments",
-        c = {
-            [[<CMD>lua require("Comment.api").toggle.linewise_op<CR>]],
-            "Toggle linewise Comment",
-        },
-        b = { [[<CMD>lua require("Comment.api").toggle.blockwise()<CR>]], "Toggle blockwise comment" },
-    },
-
 }
 
 which_key.setup(setup)

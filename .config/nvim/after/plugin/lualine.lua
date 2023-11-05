@@ -39,8 +39,3 @@ require('lualine').setup {
     inactive_winbar = {},
     extensions = { 'fugitive', 'man', 'mason', 'nvim-dap-ui', 'nvim-tree', 'quickfix', 'toggleterm' }
 }
-
-function filepath()
-    print(vim.fn.expand('%'))
-    return [[vim.fn.expand(%) .. "/"]]
-end

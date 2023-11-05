@@ -40,12 +40,12 @@ lsp.configure('pylsp', {
 })
 
 require('lspconfig').clangd.setup {
+---@diagnostic disable-next-line: unused-local
     on_attach = function(client, buffer)
         vim.api.nvim_create_autocmd("LspTokenUpdate", {
             buffer = buffer,
             callback = show_unconst_caps,
         })
-
         -- other on_attach logic
     end
 }
@@ -94,6 +94,7 @@ lsp.set_preferences({
     }
 })
 
+---@diagnostic disable-next-line: unused-local
 lsp.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = true, silent = true}
 
