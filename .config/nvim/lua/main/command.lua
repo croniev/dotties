@@ -23,11 +23,16 @@ vim.api.nvim_create_user_command('RunInTerminal',
         local file = vim.fn.expand('%')
         local extension = vim.fn.expand('%:e')
         local commands = {}
-        commands["py"] = {cmd = "python", complete = false, after = false}
-        commands["sh"] = {cmd = "bash", complete = false, after = false}
-        commands["js"] = {cmd = "node", complete = false, after = false}
-        commands["html"] = {cmd = "firefox --new-window", complete = false, after = 'tabclose'}
-        commands["css"] = {cmd = "firefox --new-window index.html", complete = true, after = 'tabclose'}
+        commands["py"] = {cmd = "python", term = true}
+        commands["sh"] = {cmd = "bash", term = true}
+        commands["js"] = {cmd = "node", term = true}
+        commands["html"] = {cmd = "firefox --new-window", after = 'tabclose', term = true}
+        commands["css"] = {cmd = "firefox --new-window index.html", complete = true, after = 'tabclose', term = true}
+        commands["tex"] = {cmd = "VimtexCompile"}
+        if not commands[extension]["term"] then
+            vim.cmd(commands[extension]["cmd"])
+            return
+        end
         if commands[extension] then
             vim.cmd("tabnew " .. file)
             if commands[extension]["complete"] then

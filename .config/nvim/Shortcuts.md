@@ -6,12 +6,10 @@ date: 2023-05-31
 thema: Nvim
 ---
 [[Nvim_Shortcuts.png]]
-#### Questions
-- Was machen cnext, cprev, lnext und lprev (habe dafür keybinds)
 
 ## Wichtige Native sachen
 - `C, c`: replace until \$ / replace until \[motion\] 
-	- `ciw, cip, ci{` mit `c, d, y`: change/delete/yank current word/paragraph/braces content
+	- `{c, d, y, v, gc, surround_cmd}{i, a}{w, p, surround_char}`: perform action on current word/paragraph/etc
 - `m*`: set mark; `'*`: go to mark
 - `'[`: go to last changed or yanked line
 - `*`: search current word
@@ -22,13 +20,16 @@ thema: Nvim
 - `<C-w>x`: switch buffers
 - `~` change case
 	- `g~, gu, gU`
+- `"=`: Expression register (kan dann pasted werden)
 - `:r !<cmd>`: place result of command under cursor
+- insert mode `<C-o>`: escape i to do one n action
 
 ## Wichtige Plugin sachen
-- which-key
+- telescope: `<C-/>`: shrortcuts anzeigen
 	- `<leader>S`: sachen durchsuchen (`<leader>Sk`: keymaps)
 	- `<leader>F`: live grep OMGGOMGOMGOMG
 	- `<leader>ls`: show all variables and stuff
+- which-key sachen
 - (`:PackerSync`: (un-)install plugins (do `:so` first))
 - `<leader>ll`: Vimtex --> Latex compilieren und öffnen
 - Comment
@@ -43,13 +44,14 @@ thema: Nvim
 	- `[d, ]d`: zwischen Fehlern springen
 	- `<leader>lR` rename current variable
 	- `<leader>lr`: zeigt wo in welchen dateien current word referenziert wird
-	- `<C-f>`: scroll though cmp
+	- `<C-f>`: scroll though cmp (--> change to `<C-d>`)
 	- `<C-e>`: abort cmp
 	- `<A-f>`: (insert mode): show signature help
 	- `gd, gD, gi`: go to definition, declaration, implementation
 	- luasnip
-		- `<Tab>` expand (funktioniert grad nicht??)
+		- `<Tab>` expand
 		- `<C-l>, <C-h>`: Move between fields
+		- `<C-E>` change choice
 - `surround`
 	- `ys{motion}{char}` add
 	- `ds{char}` delete
@@ -71,21 +73,24 @@ thema: Nvim
 - `<leader>u`: undo-tree toggle
 - `<leader>a`: harpoon mark a file, `<C-E>` harpoon show files
 - [CSS reference](https://github.com/rstacruz/vim-hyperstyle/blob/master/REFERENCE.md)
-- Autopairs
-	- `<A-e>`: wrap current bracketsaround next brackets
-	- `<A-b>`: backplace
+- [Nerdfonts icons](https://www.nerdfonts.com/cheat-sheet)
+- `<A-e>`: wrap current brackets around next word
 - DAP (debugging)
 	- `<leader>db/dn/di/do/dx`: launch-continue/next/step into/step out/terminate
 	- `<leader>dbb`: launch-continue with mode select
 	- `<leader>-` toggle breakpoint, ` ` jump between breakpoints (?)
 	- `<leader>du`: toggle UI
-	- `<leader>K`: Hover DAP
+	- `<A-K>`: Hover DAP
 	- UI: `e,t,d,r,o`
+- Test
+	- `<leader>ts`: toggle summary
+	- `m/M`: mark/clear, `t/T`: target/clear, `r/R`: run/run marked, `o/O`: output/short output, `J/K`: jump between fails, `i`: go to test, `e`: expand all, `d`: debug
 
 ## Wichtige Custom sachen
 - `<leader>s`: replace word under cursor in file
 - `<leader>r`: run file
 - `<leader>cd`: make file dir cwd, `<leader>upo/down`: move cwd up or down (relative to file)
+- `<leader>h/H`: :h oder :helpgrep auf Wort unter cursor
 
 
 ## Not sure what dese do

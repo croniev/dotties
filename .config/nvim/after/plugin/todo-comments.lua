@@ -54,13 +54,13 @@ require('todo-comments').setup {
         -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
     },
 }
-vim.keymap.set("n", "]t", function()
+--[[ vim.keymap.set("n", "]t", function()
     require("todo-comments").jump_next()
 end, { desc = "Next todo comment" })
 
 vim.keymap.set("n", "[t", function()
     require("todo-comments").jump_prev()
-end, { desc = "Previous todo comment" })
+end, { desc = "Previous todo comment" }) ]]
 
-vim.keymap.set("n", "<leader>tt", ":TodoTelescope<CR>", { desc = "Previous todo comment" })
-vim.keymap.set("n", "<leader>tq", ":TodoQuickFix<CR>", { desc = "Previous todo comment" })
+-- vim.keymap.set("n", "<leader>tt", ":TodoTelescope<CR>", { desc = "Previous todo comment" })
+-- vim.keymap.set("n", "<leader>tq", ":TodoQuickFix<CR>", { desc = "Previous todo comment" })

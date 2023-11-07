@@ -85,8 +85,8 @@ map("n", "<leader>pac", "<cmd>e ~/.config/nvim/lua/main/packer.lua<CR>", opts); 
 map("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>", opts);        -- find out ;, opts)
 
 -- quickfix list
-map("n", "<C-k>", "<cmd>cnext<CR>zz", opts)
-map("n", "<C-j>", "<cmd>cprev<CR>zz", opts)
+map("n", "<C-j>", "<cmd>cnext<CR>zz", opts)
+map("n", "<C-k>", "<cmd>cprev<CR>zz", opts)
 map("n", "<leader>k", "<cmd>lnext<CR>zz", opts) -- only list in current filej
 map("n", "<leader>j", "<cmd>lprev<CR>zz", opts)
 map("n", "<leader>cl", "<cmd>cw<CR>", opts) -- show list

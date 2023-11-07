@@ -1,14 +1,33 @@
 local lsp = require("lsp-zero")
+local lspcnfg = require('lspconfig')
 
-lsp.preset("recommended")
+lsp.setup()
 
-lsp.ensure_installed({
-    'rust_analyzer',
-    'pylsp'
+lsp.preset("manual-setup")
+require('mason').setup()
+-- use :Mason to managa language servers
+
+require("mason-lspconfig").setup({
+    ensure_installed = {
+        "texlab",
+        "eslint",
+        "html",
+        "lua_ls",
+        "rust_analyzer",
+    },
+})
+
+lspcnfg.eslint.setup({
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
 })
 
 -- Fix Undefined global 'vim'
-require('lspconfig').lua_ls.setup {
+lspcnfg.lua_ls.setup {
     settings = {
         Lua = {
             diagnostics = {
@@ -22,25 +41,26 @@ require('lspconfig').lua_ls.setup {
     }
 }
 
-lsp.configure('pylsp', {
+lspcnfg.pylsp.setup {
     settings = {
         pylsp = {
-            configurationSources = { 'flake8' },
             plugins = {
-                pycodestyle = {},
-                flake8 = {
+                yapf = { enabled = true },
+                pyflakes = { enabled = true },
+                mccabe = { enabled = false },
+                pycodestyle = {
                     enabled = true,
-                    ignore = { "E501",
-                        "F401",
-                    },
-                }
+                    ignore = { 'E501', 'F401' }
+                },
+                flake8 = { enabled = false },
+                isort = { enabled = true },
             }
         }
     }
-})
+}
 
-require('lspconfig').clangd.setup {
----@diagnostic disable-next-line: unused-local
+lspcnfg.clangd.setup {
+    ---@diagnostic disable-next-line: unused-local
     on_attach = function(client, buffer)
         vim.api.nvim_create_autocmd("LspTokenUpdate", {
             buffer = buffer,
@@ -64,22 +84,6 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 
--- LuaSnip keymaps
-local ls = require('luasnip')
--- vim.keymap.set({ "i" }, "<Tab>", function() ls.expand() end, { silent = true })
-vim.keymap.set({ "i" }, "<Tab>", function()
-    if ls.expand_or_jumpable() then
-        ls.expand_or_jump() end
-    end, { remap = false, silent = true })
-vim.keymap.set({ "i", "s" }, "<C-L>", function() ls.jump(1) end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-H>", function() ls.jump(-1) end, { silent = true })
-
-vim.keymap.set({ "i", "s" }, "<C-E>", function()
-    if ls.choice_active() then
-        ls.change_choice(1)
-    end
-end, { silent = true })
-
 lsp.setup_nvim_cmp({
     mapping = cmp_mappings
 })
@@ -95,23 +99,9 @@ lsp.set_preferences({
 })
 
 ---@diagnostic disable-next-line: unused-local
-lsp.on_attach(function(client, bufnr)
-    local opts = { buffer = bufnr, remap = true, silent = true}
-
-    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-    vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
-    vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
-    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-    vim.keymap.set("i", "<A-f>", function() vim.lsp.buf.signature_help() end, opts)
-    vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-    vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, opts)
-    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, opts)
-    vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-    vim.keymap.set("n", "<leader>f", ":lua vim.lsp.buf.format()<cr>zz") -- Formattieren
-end)
-
-lsp.setup()
+local opts = { remap = true, silent = true }
+-- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+vim.keymap.set("i", "<A-f>", function() vim.lsp.buf.signature_help() end, opts)
 
 vim.diagnostic.config({
     virtual_text = true

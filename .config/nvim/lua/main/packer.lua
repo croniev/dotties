@@ -53,7 +53,6 @@ return require('packer').startup(function(use)
     use "nvim-treesitter/nvim-treesitter-context"
     use "p00f/nvim-ts-rainbow"                                             -- color for parenthesis
     use "andymass/vim-matchup"                                             -- klammern
-    use "windwp/nvim-ts-autotag"                                           -- close HTML brackets
     use { "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" } -- To-do comments
     -- use "RRethy/vim-illuminate"  -- highlight other uses of the word -- Macht nvim sehr langsam lol
 
@@ -68,8 +67,8 @@ return require('packer').startup(function(use)
         { 'hrsh7th/cmp-buffer' },       -- buffer completion
         { 'hrsh7th/cmp-path' },         -- path completion
         { 'saadparwaiz1/cmp_luasnip' }, -- snippet completion
-        { 'hrsh7th/cmp-nvim-lsp' },     -- cmdline completions
-        { 'hrsh7th/cmp-nvim-lua' },     -- cmdline completions
+        { 'hrsh7th/cmp-nvim-lsp' },     -- nvim lsp completions
+        { 'hrsh7th/cmp-nvim-lua' },     -- nvim lua API completions
         { 'hrsh7th/cmp-cmdline' },      -- cmdline completions
         -- Snippets
         { 'L3MON4D3/LuaSnip' },
@@ -81,6 +80,7 @@ return require('packer').startup(function(use)
     use { 'numToStr/Comment.nvim', config = function() require('Comment').setup({ ignore = '^$' }) end } --Toggle comments
     use 'rstacruz/vim-hyperstyle'
     use 'windwp/nvim-autopairs'
+    use "windwp/nvim-ts-autotag"                                           -- close HTML brackets
     use({
         "kylechui/nvim-surround",   -- adding, changing and removing braces
         tag = "*",
@@ -124,4 +124,5 @@ return require('packer').startup(function(use)
     use 'nvim-tree/nvim-web-devicons'
     use 'folke/tokyonight.nvim'
     use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } }
+    use 'blueyed/vim-diminactive'
 end)

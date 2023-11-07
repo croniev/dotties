@@ -24,5 +24,3 @@ require("coverage").setup({
     commands = true,
 
 })
-
-vim.keymap.set("n", "<leader>ts", ":lua require'neotest'.summary.toggle()<CR><C-W>l", {silent = true, noremap = true})

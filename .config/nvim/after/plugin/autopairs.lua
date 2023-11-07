@@ -8,10 +8,10 @@ npairs.setup({
     fast_wrap = {},
 })
 
-local cond = require('nvim-autopairs.conds')
-local utils = require('nvim-autopairs.utils')
+-- local cond = require('nvim-autopairs.conds')
+-- local utils = require('nvim-autopairs.utils')
 
-local function multiline_close_jump(open, close)
+--[[ local function multiline_close_jump(open, close)
     return Rule(close, '')
         :with_pair(function()
             local row, col = utils.get_cursor(0)
@@ -51,4 +51,4 @@ npairs.add_rules {
     multiline_close_jump('(', ')'),
     multiline_close_jump('[', ']'),
     multiline_close_jump('{', '}'),
-}
+} ]]

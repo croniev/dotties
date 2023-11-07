@@ -17,7 +17,7 @@ local setup = {
         -- the presets plugin, adds help for a bunch of default keybindings in Neovim
         -- No actual key bindings are created
         presets = {
-            operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+            operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
             motions = false, -- adds help for motions
             text_objects = false, -- help for text objects triggered after entering an operator
             windows = true, -- default bindings on <c-w>
@@ -59,7 +59,7 @@ local setup = {
         height = { min = 4, max = 25 }, -- min and max height of the columns
         width = { min = 20, max = 50 }, -- min and max width of the columns
         spacing = 3, -- spacing between columns
-        align = "left", -- align columns left, center or right
+        align = "center", -- align columns left, center or right
     },
     ignore_missing = true, -- enable this to hide mappings for which you didn't specify a label
     hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
@@ -85,41 +85,42 @@ local opts = {
     nowait = true, -- use `nowait` when creating keymaps
 }
 
-local mappings = {
+local nmappings = {
     ["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Comment" },
-    ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
-    ["b"] = {
-        "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
-        "Buffers",
-    },
+    ["-"] = { ":lua require 'dap'.toggle_breakpoint()<CR>", "Toggle Breakpoint"},
+    ["a"] = { "<cmd>lua require'harpoon.mark'.add_file()<cr>", "Add to Harpoon" },
+    -- ["b"] = { "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Buffers", },
     ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
     ["w"] = { "<cmd>w!<CR>", "Save" },
-    ["q"] = { "<cmd>lua require'main.keymapfunctions'.TODOLocList()<cr>", "Todo Location list" },
+    -- ["q"] = { "<cmd>lua require'main.keymapfunctions'.TODOLocList()<cr>", "Todo Location list" },
     -- ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
-    ["f"] = {
+    --[[ ["f"] = {
         "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
         "Find files",
-    },
-    ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
+    }, ]]
+    ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Live Grep" },
     ["P"] = { "<cmd>Telescope workspaces<cr>", "Projects/Workspaces" },
+    ["u"] = { "<CMD>UndoTreeToggle<CR>", "Toggle Undotree" },
 
-    p = {
-        name = "Packer",
-        c = { "<cmd>PackerCompile<cr>", "Compile" },
-        i = { "<cmd>PackerInstall<cr>", "Install" },
-        s = { "<cmd>PackerSync<cr>", "Sync" },
-        S = { "<cmd>PackerStatus<cr>", "Status" },
-        u = { "<cmd>PackerUpdate<cr>", "Update" },
+    d = {
+        name = "DAP",
+        b = { ":lua require'dap'.continue()<CR>1<CR><CR>", "Start/Continue" },
+        n = { ":lua require 'dap'.step_over()<CR>", "Step Over" },
+        i = { ":lua require 'dap'.step_into()<CR>", "Step Into" },
+        o = { ":lua require 'dap'.step_out()<CR>", "Step Out" },
+        x = { ":lua require 'dap'.terminate()<CR>", "Terminate" },
+        u = { ":lua require 'dapui'.toggle()<CR>", "Toggle UI" },
+        -- TODO: Logpoints and CBreakpoints
     },
 
     g = {
         name = "Git",
-        g = { "<cmd>lua _LAZYGIT_TOGGLE()<cr>", "Lazygit" },
+        -- TODO: Vgit?? jedenfalls lazygit
+        --[[ g = { "<cmd>lua _LAZYGIT_TOGGLE()<cr>", "Lazygit" },
         p = { "<cmd>VGit buffer_blame_preview<cr>", "Preview Hunk" },
         s = { "<cmd>VGit buffer_stage<cr>", "Stage buffer" },
         u = { "<cmd>VGit buffer_unstage<cr>", "Undo Stage Hunk" },
-        h = { "<cmd>VGit buffer_history_preview<cr>", "buffer history" },
-        -- TODO: move to telescope thing
+        h = { "<cmd>VGit buffer_history_preview<cr>", "buffer history" }, ]]
         o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
         b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
         c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
@@ -128,29 +129,63 @@ local mappings = {
         --      "Diff",
         --    },
     },
+
+    h = {
+        name = "Gitsigns",
+        s = { "<CMD>lua require'gitsings'.stage_hunk()<CR>", "Stage Hunk" },
+        r = { "<CMD>lua require'gitsings'.reset_hunk()<CR>", "Reset Hunk" },
+        S = { "<CMD>lua require'gitsings'.stage_buffer()<CR>", "Stage Buffer" },
+        u = { "<CMD>lua require'gitsings'.undo_stage_hunk()<CR>", "Undo Stage Hunk" },
+        R = { "<CMD>lua require'gitsings'.reset_buffer()<CR>", "Reset Buffer" },
+        p = { "<CMD>lua require'gitsings'.preview_hunk()<CR>", "Preview Hunk" },
+        b = { "<CMD>lua require'gitsings'.blame_line{full=true}<CR>", "Blame Line" },
+        B = { "<CMD>lua require'gitsings'.toggle_current_line_blame()<CR>", "Toggle Blame" },
+        d = { "<CMD>lua require'gitsings'.diffthis()<CR>", "Diff" },
+        D = { "<CMD>lua require'gitsings'.diffthis('~')<CR>", "Diff2" },
+        t = { "<CMD>lua require'gitsings'.toggle_deleted()<CR>", "Toggle Deleted" },
+    },
+
     l = {
         name = "LSP",
         a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
         d = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Goto definition" },
         D = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto declaration" },
-        h = { "<cmd>lua vim.lsp.buf.hover()<CR>", "hover" },
+        K = { "<cmd>lua vim.lsp.buf.hover()<CR>", "hover" },
         -- d = {"<cmd>Telescope lsp_document_diagnostics<cr>", "Document Diagnostics"},
         -- w = {"<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics"},
-        f = { "<cmd>lua vim.lsp.buf.format{async = true}<cr>", "Format" },
+        f = { "<cmd>lua vim.lsp.buf.format{async = true}<cr>zz", "Format" },
         i = { "<cmd>LspInfo<cr>", "Info" },
         I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
-        j = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next Diagnostic" },
-        k = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
-        L = { "<<cmd>lua vim.diagnostic.open_float()<CR>", "float Diagnostic" },
+        -- j = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next Diagnostic" },
+        -- k = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
+        -- L = { "<<cmd>lua vim.diagnostic.open_float()<CR>", "float Diagnostic" },
         -- l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-        q = { "<cmd>lua vim.diagnostic.setqflist()<cr>", "Quickfix" },
-        R = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-        r = { "<cmd>lua vim.lsp.buf.references()<CR>", "References" },
+        r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+        R = { "<cmd>lua vim.lsp.buf.references()<CR>", "References" },
         s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
         S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
         z = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Implementations?" },
         Z = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature help?" },
     },
+
+    m = {
+        name = "my stuff",
+    },
+
+    q = {
+        name = "Quickfix",
+        d = { "<cmd>lua vim.diagnostic.setqflist()<cr>", "Search Diagnostics" },
+        t = { "<CMD>TodoQuickFix<CR>", "Search Todo-Comments"}
+    },
+
+    r = {
+        name = "Refactoring",
+        F = { "<CMD>lua require('refactoring').refactor('Inline Function')<CR>", "Inline Fct" },
+        V = { "<CMD>lua require('refactoring').refactor('Inline Variable')<CR>", "Inline Variable" },
+        b = { "<CMD>lua require('refactoring').refactor('Extract Block')<CR>", "Extract Block" },
+        B = { "<CMD>lua require('refactoring').refactor('Extract Block To File')<CR>", "Extract Block to File" },
+    },
+
     S = {
         name = "Search",
         b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
@@ -161,10 +196,18 @@ local mappings = {
         R = { "<cmd>Telescope registers<cr>", "Registers" },
         k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
         C = { "<cmd>Telescope commands<cr>", "Commands" },
+        B = { "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Buffers", },
+        t = { "<cmd>TodoTelescope<CR>", "Todo-Comments"},
+    },
+
+    t = {
+        name = "Test",
+        s = { ":lua require'neotest'.summary.toggle()<CR><C-W>l", "Toggle Summary" },
     },
 
     T = {
         name = "Terminal",
+        -- TODO: Terminal sachen
         n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
         u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
         t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
@@ -172,15 +215,6 @@ local mappings = {
         f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
         h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
         v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
-    },
-    -- TODO: Add telescope for "t"
-
-    m = {
-        name = "my stuff",
-        c = { "<cmd>ColorizerAttachToBuffer<cr>", "enable colorizer" },
-        s = { "<cmd>source ~/.config/nvim/lua/main/luasnip.lua<cr>" },
-        l = { "<cmd>lua require'main.keymapfunctions'.latex()<cr>", "Show markdown/tex preview" },
-        S = {"<cmd>Shipwright ~/.config/nvim/lua/colors/shipwright_build.lua<cr>"}
     },
 }
 
@@ -192,14 +226,58 @@ local vopts = {
     noremap = true, -- use `noremap` when creating keymaps
     nowait = true, -- use `nowait` when creating keymaps
 }
+
 local vmappings = {
     ["/"] = { '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', "Comment" },
+
+    r = {
+        f = { "<CMD>lua require('refactoring').refactor('Extract Function')<CR>", "Extract Function" },
+        e = { "<CMD>lua require('refactoring').refactor('Extract Function To File')<CR>", "Extract Function to File" },
+        v = { "<CMD>lua require('refactoring').refactor('Extract Variable')<CR>", "Extract Variable" },
+        V = { "<CMD>lua require('refactoring').refactor('Inline Variable')<CR>", "Inline Variable" },
+    },
+
     z = {
         name = "Folds",
         f = { ":'<,'>fold<CR>", "create Fold" },
     },
 }
 
+local braccopts = {
+    mode = "n",
+    prefix = "]",
+    buffer = nil,
+    silent = true, -- use `silent` when creating keymaps
+    noremap = true, -- use `noremap` when creating keymaps
+    nowait = true, -- use `nowait` when creating keymaps
+}
+
+local braccmappings = {
+    ["d"] = { '<CMD>lua vim.diagnostic.goto_next()<CR>', "LSP Diagnostic"},
+    ["b"] = { "<CMD>lua require('goto-breakpoints').next()<CR>", "Breakpoint" },
+    ["S"] = { "<CMD>lua require('goto-breakpoints').stopped()<CR>", "Debug stopped"},
+    ["c"] = { "<CMD> lua require'gitsigns'.next_hunk()<CR>", "Git Hunk" },
+    ["t"] = { "<CMD> lua require'todo-comments'.jump_next()<CR>", "Todo-Comment" }
+}
+
+local bracoopts = {
+    mode = "n",
+    prefix = "[",
+    buffer = nil,
+    silent = true, -- use `silent` when creating keymaps
+    noremap = true, -- use `noremap` when creating keymaps
+    nowait = true, -- use `nowait` when creating keymaps
+}
+
+local bracomappings = {
+    ["d"] = { '<CMD>lua vim.diagnostic.goto_next()<CR>', "LSP Diagnostic"},
+    ["b"] = { "<CMD>lua require('goto-breakpoints').next()<CR>", "Breakpoint" },
+    ["c"] = { "<CMD> lua require'gitsigns'.prev_hunk()<CR>", "Git Hunk" },
+    ["t"] = { "<CMD> lua require'todo-comments'.jump_prev()<CR>", "Todo-Comment" }
+}
+
 which_key.setup(setup)
-which_key.register(mappings, opts)
+which_key.register(nmappings, opts)
 which_key.register(vmappings, vopts)
+which_key.register(bracomappings, bracoopts)
+which_key.register(braccmappings, braccopts)

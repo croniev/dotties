@@ -310,6 +310,11 @@ _G.packer_plugins = {
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
   },
+  ["vim-diminactive"] = {
+    loaded = true,
+    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/vim-diminactive",
+    url = "https://github.com/blueyed/vim-diminactive"
+  },
   ["vim-hyperstyle"] = {
     loaded = true,
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/vim-hyperstyle",

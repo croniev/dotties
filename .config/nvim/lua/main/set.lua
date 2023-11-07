@@ -21,6 +21,9 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
+-- remove highlighting of TODO and FIX
+vim.api.nvim_set_hl(0, 'Todo', {fg='none', bg='none'})
+vim.api.nvim_set_hl(0, '@text.warning', {fg='none', bg='none'})
 
 vim.api.nvim_set_hl(0, 'LineNrAbove', { fg='#51B3EC', bold=true })
 vim.api.nvim_set_hl(0, 'LineNr', { fg='yellow', bold=true })
