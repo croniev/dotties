@@ -38,12 +38,25 @@ vim.api.nvim_create_user_command('RunInTerminal',
             if commands[extension]["complete"] then
                 file = ""
             end
+            -- TODO: an floatterm anpassen :)
             vim.cmd("term " .. commands[extension]["cmd"] .. ' ' .. file)
             if commands[extension]["after"] then
                 vim.cmd(commands[extension]["after"])
             end
         else
             print("Unknown filetype for running in terminal!")
+        end
+    end,
+    {})
+
+vim.api.nvim_create_user_command('ToggleWrap',
+    function ()
+        local status = vim.o.wrap
+        print(status)
+        if status then
+            vim.cmd('set nowrap')
+        else
+            vim.cmd('set wrap')
         end
     end,
     {})
@@ -58,4 +71,12 @@ vim.api.nvim_create_autocmd('User', {
       create_buffer_local_mappings()
     end)
   end
+})
+
+-- Startup shit to go around bugs
+vim.api.nvim_create_autocmd({"VimEnter"}, {
+    command = "source ~/.config/nvim/after/plugin/lsp.lua"
+})
+vim.api.nvim_create_autocmd({"VimEnter"}, {
+    command = "lua require'flash'.setup()"
 })

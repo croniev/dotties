@@ -39,6 +39,7 @@ return require('packer').startup(function(use)
     use("folke/zen-mode.nvim")
     use("eandrju/cellular-automaton.nvim")
     use("goolord/alpha-nvim")
+    use { 'folke/flash.nvim' }
     -- TODO: term
 
     -- NOTE: Files
@@ -51,7 +52,7 @@ return require('packer').startup(function(use)
     -- NOTE: Highlighting
     use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
     use "nvim-treesitter/nvim-treesitter-context"
-    use "p00f/nvim-ts-rainbow"                                             -- color for parenthesis
+    use "HiPhish/rainbow-delimiters.nvim"                                  -- Rainbow braces
     use "andymass/vim-matchup"                                             -- klammern
     use { "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" } -- To-do comments
     -- use "RRethy/vim-illuminate"  -- highlight other uses of the word -- Macht nvim sehr langsam lol
@@ -80,9 +81,9 @@ return require('packer').startup(function(use)
     use { 'numToStr/Comment.nvim', config = function() require('Comment').setup({ ignore = '^$' }) end } --Toggle comments
     use 'rstacruz/vim-hyperstyle'
     use 'windwp/nvim-autopairs'
-    use "windwp/nvim-ts-autotag"                                           -- close HTML brackets
+    use "windwp/nvim-ts-autotag"  -- close HTML brackets
     use({
-        "kylechui/nvim-surround",   -- adding, changing and removing braces
+        "kylechui/nvim-surround", -- adding, changing and removing braces
         tag = "*",
         config = function()
             require("nvim-surround").setup({

@@ -136,6 +136,11 @@ _G.packer_plugins = {
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  ["flash.nvim"] = {
+    loaded = true,
+    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/flash.nvim",
+    url = "https://github.com/folke/flash.nvim"
+  },
   ["friendly-snippets"] = {
     loaded = true,
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/friendly-snippets",
@@ -260,11 +265,6 @@ _G.packer_plugins = {
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/nvim-ts-autotag",
     url = "https://github.com/windwp/nvim-ts-autotag"
   },
-  ["nvim-ts-rainbow"] = {
-    loaded = true,
-    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow",
-    url = "https://github.com/p00f/nvim-ts-rainbow"
-  },
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
@@ -284,6 +284,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/popup.nvim",
     url = "https://github.com/nvim-lua/popup.nvim"
+  },
+  ["rainbow-delimiters.nvim"] = {
+    loaded = true,
+    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/rainbow-delimiters.nvim",
+    url = "https://github.com/HiPhish/rainbow-delimiters.nvim"
   },
   ["refactoring.nvim"] = {
     loaded = true,

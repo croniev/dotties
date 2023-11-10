@@ -32,7 +32,7 @@ require('lualine').setup {
         lualine_c = {'diagnostics', 'diff'},
         lualine_x = {},
         lualine_y = {'filetype'},
-        lualine_z = {'fileformat', 'fileformat','fileformat','fileformat',}
+        lualine_z = {'fileformat', 'fileformat', 'fileformat','fileformat','fileformat',}
     },
     tabline = {},
     winbar = {},

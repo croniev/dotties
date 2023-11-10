@@ -14,42 +14,29 @@ thema: Nvim
 - `'[`: go to last changed or yanked line
 - `*`: search current word
 - `<C-a>, <C-x>`: increase / decrease number
-- `gv`: vorherige selection reaktivieren
-- `gt` und `gT`: tab wechseln, `g<Tab>`: zwischen recent tabs wechseln, `$NRgt$` zur Tab nummer $NR wechseln
 - `>%`, `>ib`: shift code block or paragraph
+- `${n}gt`: go to tab number ${n}
 - `<C-w>x`: switch buffers
-- `~` change case
-	- `g~, gu, gU`
+- `~` change case (use `g` as well)
 - `"=`: Expression register (kan dann pasted werden)
 - `:r !<cmd>`: place result of command under cursor
 - insert mode `<C-o>`: escape i to do one n action
+- insert mode `<C-r>`: insert from buffer
+- `z`: folds, movement, spelling
 
 ## Wichtige Plugin sachen
 - telescope: `<C-/>`: shrortcuts anzeigen
-	- `<leader>S`: sachen durchsuchen (`<leader>Sk`: keymaps)
-	- `<leader>F`: live grep OMGGOMGOMGOMG
-	- `<leader>ls`: show all variables and stuff
-- which-key sachen
-- (`:PackerSync`: (un-)install plugins (do `:so` first))
-- `<leader>ll`: Vimtex --> Latex compilieren und öffnen
 - Comment
-	- `<leader>/`: toggle comment
 	- `gbc`: block comments
-	- `gc[count]{motion}` for N-mode line toggle
+	- `gc[count]{motion}` normalmode
 	- `gc{`: toggle until blank line,  `gcip`: toggle paragraph
 	- `gci{ / gca{`: toggle inside/around curly braces
 - `lsp.lua`
 	- `K`: typ der Variable anzeigen, nochmal um ins fenster rein zu gehen
-	- `<leader>la`: code actions
-	- `[d, ]d`: zwischen Fehlern springen
-	- `<leader>lR` rename current variable
-	- `<leader>lr`: zeigt wo in welchen dateien current word referenziert wird
-	- `<C-f>`: scroll though cmp (--> change to `<C-d>`)
 	- `<C-e>`: abort cmp
 	- `<A-f>`: (insert mode): show signature help
-	- `gd, gD, gi`: go to definition, declaration, implementation
 	- luasnip
-		- `<Tab>` expand
+		- `<Tab>` expand <font color="red">broken</font>
 		- `<C-l>, <C-h>`: Move between fields
 		- `<C-E>` change choice
 - `surround`
@@ -64,34 +51,15 @@ thema: Nvim
 		- q: { ", ', \`}
 		- s: { }, ], ), >, ", ', \`}
 		- t: html
-- `]t`: zwischen todo-comments springen
 - Git
-	- `<C-p`: search only git files
-	- `]c` zwischen hunks springen
-	- `<leader>hs` stage hunk, `<leader>hr` reset hunk
-	- `co/ct` choose ours/theirs
-- `<leader>u`: undo-tree toggle
-- `<leader>a`: harpoon mark a file, `<C-E>` harpoon show files
-- [CSS reference](https://github.com/rstacruz/vim-hyperstyle/blob/master/REFERENCE.md)
-- [Nerdfonts icons](https://www.nerdfonts.com/cheat-sheet)
+	- `<C-p>`: search only git files
+	- `co/ct` choose ours/theirs <font color="red">testen</font>
+- `<C-E>` harpoon show files
 - `<A-e>`: wrap current brackets around next word
 - DAP (debugging)
-	- `<leader>db/dn/di/do/dx`: launch-continue/next/step into/step out/terminate
-	- `<leader>dbb`: launch-continue with mode select
-	- `<leader>-` toggle breakpoint, ` ` jump between breakpoints (?)
-	- `<leader>du`: toggle UI
 	- `<A-K>`: Hover DAP
 	- UI: `e,t,d,r,o`
 - Test
-	- `<leader>ts`: toggle summary
 	- `m/M`: mark/clear, `t/T`: target/clear, `r/R`: run/run marked, `o/O`: output/short output, `J/K`: jump between fails, `i`: go to test, `e`: expand all, `d`: debug
-
-## Wichtige Custom sachen
-- `<leader>s`: replace word under cursor in file
-- `<leader>r`: run file
-- `<leader>cd`: make file dir cwd, `<leader>upo/down`: move cwd up or down (relative to file)
-- `<leader>h/H`: :h oder :helpgrep auf Wort unter cursor
-
-
-## Not sure what dese do
-- `<leader>lS`: symbols/variables etc.
+- [Nerdfonts icons](https://www.nerdfonts.com/cheat-sheet)
+- [CSS reference](https://github.com/rstacruz/vim-hyperstyle/blob/master/REFERENCE.md)

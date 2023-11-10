@@ -92,6 +92,7 @@ local nmappings = {
     -- ["b"] = { "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Buffers", },
     ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
     ["w"] = { "<cmd>w!<CR>", "Save" },
+    [" "] = { "<CMD>so<CR>", "Source" },
     -- ["q"] = { "<cmd>lua require'main.keymapfunctions'.TODOLocList()<cr>", "Todo Location list" },
     -- ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
     --[[ ["f"] = {
@@ -101,6 +102,13 @@ local nmappings = {
     ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Live Grep" },
     ["P"] = { "<cmd>Telescope workspaces<cr>", "Projects/Workspaces" },
     ["u"] = { "<CMD>UndoTreeToggle<CR>", "Toggle Undotree" },
+    ["h"] = { 'yiw:h <C-r>"<CR>', "Get Help"},
+    ["H"] = { 'yiw:helpg <C-r>"<CR>', "Get Helpgrep"},
+    ["Y"] = { '"+Y', "Yank Line Ext"},
+    ["s"] = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Rename"},
+    ["x"] = { "<cmd>!chmod +x %<CR>", "Make Executable"},
+    ["r"] = { "<CMD>RunInTerminal<CR>", "RunInTerminal"},
+    ["W"] = { "<CMD>ToggleWrap<CR>", "ToggleWrap" },
 
     d = {
         name = "DAP",
@@ -128,18 +136,14 @@ local nmappings = {
         --      "<cmd>Gitsigns diffthis HEAD<cr>",
         --      "Diff",
         --    },
-    },
-
-    h = {
-        name = "Gitsigns",
         s = { "<CMD>lua require'gitsings'.stage_hunk()<CR>", "Stage Hunk" },
         r = { "<CMD>lua require'gitsings'.reset_hunk()<CR>", "Reset Hunk" },
         S = { "<CMD>lua require'gitsings'.stage_buffer()<CR>", "Stage Buffer" },
         u = { "<CMD>lua require'gitsings'.undo_stage_hunk()<CR>", "Undo Stage Hunk" },
         R = { "<CMD>lua require'gitsings'.reset_buffer()<CR>", "Reset Buffer" },
         p = { "<CMD>lua require'gitsings'.preview_hunk()<CR>", "Preview Hunk" },
-        b = { "<CMD>lua require'gitsings'.blame_line{full=true}<CR>", "Blame Line" },
-        B = { "<CMD>lua require'gitsings'.toggle_current_line_blame()<CR>", "Toggle Blame" },
+        l = { "<CMD>lua require'gitsings'.blame_line{full=true}<CR>", "Blame Line" },
+        L = { "<CMD>lua require'gitsings'.toggle_current_line_blame()<CR>", "Toggle Blame" },
         d = { "<CMD>lua require'gitsings'.diffthis()<CR>", "Diff" },
         D = { "<CMD>lua require'gitsings'.diffthis('~')<CR>", "Diff2" },
         t = { "<CMD>lua require'gitsings'.toggle_deleted()<CR>", "Toggle Deleted" },
@@ -150,7 +154,7 @@ local nmappings = {
         a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
         d = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Goto definition" },
         D = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto declaration" },
-        K = { "<cmd>lua vim.lsp.buf.hover()<CR>", "hover" },
+        K = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
         -- d = {"<cmd>Telescope lsp_document_diagnostics<cr>", "Document Diagnostics"},
         -- w = {"<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics"},
         f = { "<cmd>lua vim.lsp.buf.format{async = true}<cr>zz", "Format" },
@@ -175,10 +179,13 @@ local nmappings = {
     q = {
         name = "Quickfix",
         d = { "<cmd>lua vim.diagnostic.setqflist()<cr>", "Search Diagnostics" },
-        t = { "<CMD>TodoQuickFix<CR>", "Search Todo-Comments"}
+        t = { "<CMD>TodoQuickFix<CR>", "Search Todo-Comments" },
+        l = { "<CMD>cw<CR>", "Show List" },
+        c = { "<CMD>ccl<CR>", "Hide List" },
+        x = { "cexpr []<CR><CMD>ccl<CR>", "Empty List" },
     },
 
-    r = {
+    R = {
         name = "Refactoring",
         F = { "<CMD>lua require('refactoring').refactor('Inline Function')<CR>", "Inline Fct" },
         V = { "<CMD>lua require('refactoring').refactor('Inline Variable')<CR>", "Inline Variable" },
@@ -229,6 +236,8 @@ local vopts = {
 
 local vmappings = {
     ["/"] = { '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', "Comment" },
+    ["h"] = { 'y<ESC>:h <C-r>"<CR>', "Get help"},
+    ["H"] = { 'y<ESC>:helpg <C-r>"<CR>', "Get helpgrep"},
 
     r = {
         f = { "<CMD>lua require('refactoring').refactor('Extract Function')<CR>", "Extract Function" },
@@ -270,8 +279,8 @@ local bracoopts = {
 }
 
 local bracomappings = {
-    ["d"] = { '<CMD>lua vim.diagnostic.goto_next()<CR>', "LSP Diagnostic"},
-    ["b"] = { "<CMD>lua require('goto-breakpoints').next()<CR>", "Breakpoint" },
+    ["d"] = { '<CMD>lua vim.diagnostic.goto_prev()<CR>', "LSP Diagnostic"},
+    ["b"] = { "<CMD>lua require('goto-breakpoints').prev()<CR>", "Breakpoint" },
     ["c"] = { "<CMD> lua require'gitsigns'.prev_hunk()<CR>", "Git Hunk" },
     ["t"] = { "<CMD> lua require'todo-comments'.jump_prev()<CR>", "Todo-Comment" }
 }
