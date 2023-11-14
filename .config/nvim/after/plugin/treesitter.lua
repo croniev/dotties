@@ -37,3 +37,16 @@ require'treesitter-context'.setup{
     enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
     max_lines = 5, -- How many lines the window should span. Values <= 0 mean no limit.
 }
+
+require('nvim-cursorline').setup {
+  cursorline = {
+    enable = true,
+    timeout = 1000,
+    number = false,
+  },
+  cursorword = {
+    enable = true,
+    min_length = 3,
+    hl = { underline = true },
+  }
+}

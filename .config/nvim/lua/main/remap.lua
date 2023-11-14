@@ -77,7 +77,6 @@ map('t', "<ESC>", '<C-\\><C-n>', opts)                                          
 -- Primagen stuff
 map("i", "<C-c>", "<Esc>", opts)
 map("n", "Q", "<nop>", opts)
-map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", opts)
 map("n", "<leader>pac", "<cmd>e ~/.config/nvim/lua/main/packer.lua<CR>", opts); -- open packer file
 map("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>", opts);        -- find out ;, opts)
 

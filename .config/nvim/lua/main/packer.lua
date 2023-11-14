@@ -41,6 +41,8 @@ return require('packer').startup(function(use)
     use("goolord/alpha-nvim")
     use { 'folke/flash.nvim' }
     -- TODO: term
+    use {'m4xshen/hardtime.nvim', requires = {"MunifTanjim/nui.nvim"},
+    config = function () require'hardtime'.setup() end}
 
     -- NOTE: Files
     use { 'nvim-telescope/telescope.nvim', tag = '0.1.4',
@@ -56,6 +58,7 @@ return require('packer').startup(function(use)
     use "andymass/vim-matchup"                                             -- klammern
     use { "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" } -- To-do comments
     -- use "RRethy/vim-illuminate"  -- highlight other uses of the word -- Macht nvim sehr langsam lol
+    use { 'yamatsum/nvim-cursorline'}
 
     -- NOTE: Semantics
     use { 'VonHeikemen/lsp-zero.nvim', branch = 'v1.x', requires = {
@@ -79,17 +82,14 @@ return require('packer').startup(function(use)
     -- NOTE: Writing
     use("lervag/vimtex")                                                                                 --latex
     use { 'numToStr/Comment.nvim', config = function() require('Comment').setup({ ignore = '^$' }) end } --Toggle comments
-    use 'rstacruz/vim-hyperstyle'
+    use 'rstacruz/vim-hyperstyle' -- css extension
+    -- TODO: Colorpicker
     use 'windwp/nvim-autopairs'
     use "windwp/nvim-ts-autotag"  -- close HTML brackets
-    use({
-        "kylechui/nvim-surround", -- adding, changing and removing braces
-        tag = "*",
-        config = function()
+    use({ "kylechui/nvim-surround", -- adding, changing and removing braces
+        tag = "*", config = function()
             require("nvim-surround").setup({
-                move_cursor = false, })
-        end
-    })
+                move_cursor = false, }) end })
     use { "nat-418/boole.nvim", config = function() -- Increment not just numbers but also bools and dates
         require('boole').setup()
     end }
@@ -125,5 +125,6 @@ return require('packer').startup(function(use)
     use 'nvim-tree/nvim-web-devicons'
     use 'folke/tokyonight.nvim'
     use { 'nvim-lualine/lualine.nvim', requires = { 'nvim-tree/nvim-web-devicons', opt = true } }
+    use 'nanozuki/tabby.nvim'
     use 'blueyed/vim-diminactive'
 end)

@@ -27,21 +27,31 @@ vim.api.nvim_create_user_command('RunInTerminal',
         commands["sh"] = {cmd = "bash", term = true}
         commands["js"] = {cmd = "node", term = true}
         commands["html"] = {cmd = "firefox --new-window", after = 'tabclose', term = true}
-        commands["css"] = {cmd = "firefox --new-window index.html", complete = true, after = 'tabclose', term = true}
+        commands["css"] = {cmd = "firefox --new-window", file= 'index.html', after = 'tabclose', term = true}
         commands["tex"] = {cmd = "VimtexCompile"}
-        if not commands[extension]["term"] then
-            vim.cmd(commands[extension]["cmd"])
-            return
-        end
+        -- If there is action for filetype
         if commands[extension] then
-            vim.cmd("tabnew " .. file)
-            if commands[extension]["complete"] then
-                file = ""
-            end
-            -- TODO: an floatterm anpassen :)
-            vim.cmd("term " .. commands[extension]["cmd"] .. ' ' .. file)
-            if commands[extension]["after"] then
-                vim.cmd(commands[extension]["after"])
+            local cmd = commands[extension]["cmd"]
+            -- If action is not to be performed in shell
+            if not commands[extension]["term"] then
+                vim.cmd(cmd)
+                return
+            else -- Action is to be performed in shell
+                -- Check if venv/exec is specified (like so: 'exec=/path/to/executable')
+                local firstLine = tostring(vim.fn.getline(1))
+                local execS, execE = string.find(firstLine, "exec=")
+                if execS then
+                    cmd = string.sub(firstLine, execE + 1)
+                end
+                vim.cmd("tabnew " .. file)
+                if commands[extension]["file"] then
+                    file = commands[extension]["file"]
+                end
+                -- TODO: an floatterm anpassen :)
+                vim.cmd("term " .. cmd .. ' ' .. file)
+                if commands[extension]["after"] then
+                    vim.cmd(commands[extension]["after"])
+                end
             end
         else
             print("Unknown filetype for running in terminal!")

@@ -162,6 +162,12 @@ _G.packer_plugins = {
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/goto-breakpoints.nvim",
     url = "https://github.com/ofirgall/goto-breakpoints.nvim"
   },
+  ["hardtime.nvim"] = {
+    config = { "\27LJ\2\0026\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rhardtime\frequire\0" },
+    loaded = true,
+    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/hardtime.nvim",
+    url = "https://github.com/m4xshen/hardtime.nvim"
+  },
   harpoon = {
     loaded = true,
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/harpoon",
@@ -197,6 +203,11 @@ _G.packer_plugins = {
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/neotest-python",
     url = "https://github.com/nvim-neotest/neotest-python"
   },
+  ["nui.nvim"] = {
+    loaded = true,
+    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    url = "https://github.com/MunifTanjim/nui.nvim"
+  },
   ["nvim-autopairs"] = {
     loaded = true,
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
@@ -211,6 +222,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/nvim-coverage",
     url = "https://github.com/andythigpen/nvim-coverage"
+  },
+  ["nvim-cursorline"] = {
+    loaded = true,
+    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/nvim-cursorline",
+    url = "https://github.com/yamatsum/nvim-cursorline"
   },
   ["nvim-dap"] = {
     loaded = true,
@@ -295,6 +311,11 @@ _G.packer_plugins = {
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/refactoring.nvim",
     url = "https://github.com/theprimeagen/refactoring.nvim"
   },
+  ["tabby.nvim"] = {
+    loaded = true,
+    path = "/home/croniev/.local/share/nvim/site/pack/packer/start/tabby.nvim",
+    url = "https://github.com/nanozuki/tabby.nvim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/croniev/.local/share/nvim/site/pack/packer/start/telescope.nvim",
@@ -356,6 +377,10 @@ time([[Config for git-conflict.nvim]], false)
 time([[Config for boole.nvim]], true)
 try_loadstring("\27LJ\2\0023\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nboole\frequire\0", "config", "boole.nvim")
 time([[Config for boole.nvim]], false)
+-- Config for: nvim-dap-python
+time([[Config for nvim-dap-python]], true)
+try_loadstring("\27LJ\2\2W\0\0\2\0\4\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0'\1\3\0B\0\2\1K\0\1\0\31~/.venv/debugpy/bin/python\nsetup\15dap-python\frequire\0", "config", "nvim-dap-python")
+time([[Config for nvim-dap-python]], false)
 -- Config for: nvim-dap-virtual-text
 time([[Config for nvim-dap-virtual-text]], true)
 try_loadstring("\27LJ\2\2G\0\0\2\0\3\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0004\1\0\0B\0\2\1K\0\1\0\nsetup\26nvim-dap-virtual-text\frequire\0", "config", "nvim-dap-virtual-text")
@@ -368,10 +393,10 @@ time([[Config for Comment.nvim]], false)
 time([[Config for nvim-surround]], true)
 try_loadstring("\27LJ\2\2O\0\0\2\0\4\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0005\1\3\0B\0\2\1K\0\1\0\1\0\1\16move_cursor\1\nsetup\18nvim-surround\frequire\0", "config", "nvim-surround")
 time([[Config for nvim-surround]], false)
--- Config for: nvim-dap-python
-time([[Config for nvim-dap-python]], true)
-try_loadstring("\27LJ\2\2W\0\0\2\0\4\0\a6\0\0\0'\1\1\0B\0\2\0029\0\2\0'\1\3\0B\0\2\1K\0\1\0\31~/.venv/debugpy/bin/python\nsetup\15dap-python\frequire\0", "config", "nvim-dap-python")
-time([[Config for nvim-dap-python]], false)
+-- Config for: hardtime.nvim
+time([[Config for hardtime.nvim]], true)
+try_loadstring("\27LJ\2\0026\0\0\2\0\3\0\0066\0\0\0'\1\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rhardtime\frequire\0", "config", "hardtime.nvim")
+time([[Config for hardtime.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
