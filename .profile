@@ -38,7 +38,7 @@ export PATH="/usr/bin:$PATH"
 
 # Startup commands
 rfkill block bluetooth
-find -type f -regex "\.\/Pictures\/.*\.\(jpg\|png\|jpeg\|JPG\)" > ~/Documents/Scripts/firefox_website/paths.txt # dump paths of pictures into file that is read by firefox home website.
+find -type f -regex "\.\/Pictures\/.*\.\(jpg\|png\|jpeg\|JPG\)" > ~/Code/Scripts/firefox_website/paths.txt # dump paths of pictures into file that is read by firefox home website.
 # indicator-sound-switcher
 # syncthing
 # blueman-applet
