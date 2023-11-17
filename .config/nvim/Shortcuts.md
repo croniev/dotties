@@ -63,3 +63,6 @@ thema: Nvim
 	- `m/M`: mark/clear, `t/T`: target/clear, `r/R`: run/run marked, `o/O`: output/short output, `J/K`: jump between fails, `i`: go to test, `e`: expand all, `d`: debug
 - [Nerdfonts icons](https://www.nerdfonts.com/cheat-sheet)
 - [CSS reference](https://github.com/rstacruz/vim-hyperstyle/blob/master/REFERENCE.md)
+
+### Custom
+- `<leader>r`: Run file. wenn in der ersten linie exec spezifiziert wird, dann wird es damit ausgeführt
