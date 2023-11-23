@@ -23,6 +23,7 @@ alias lsa='exa --icons -lah --group-directories-first'
 alias lst='exa --icons --tree'
 alias lsta='exa --icons --tree --long'
 alias dots='/usr/bin/git --git-dir=$HOME/dotties.git/ --work-tree=$HOME'
+# alias nvim='exec /usr/bin/kitty nvim'
 
 # -----------------------------------------------------------------------------------------------------------------
 
@@ -56,6 +57,7 @@ fi
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
+    xterm-color|*-256color|xterm-kitty) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned

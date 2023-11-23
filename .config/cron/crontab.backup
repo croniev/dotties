@@ -22,6 +22,5 @@
 # 
 # m h  dom mon dow   command
 */3 * * * * /home/croniev/Code/Scripts/batterywarning.sh
-* * * * 4 touch ~/Desktop/crontest.txt
 * * * * 4 crontab -l > /home/croniev/.config/cron/crontab.backup
 * * * * 4 cp ~/Documents/Obsidian_Vault/_/Nvim\ Knowledge.md ~/.config/nvim/Shortcuts.md
