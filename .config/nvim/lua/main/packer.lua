@@ -104,7 +104,8 @@ return require('packer').startup(function(use)
     -- use("tpope/vim-fugitive") -- git sachen TODO: brauche ich das?
 
     -- DEBUGGING
-    use 'mfussenegger/nvim-dap'
+    use { 'mfussenegger/nvim-dap', 
+        requires = {"nvim-neotest/nvim-nio"} }
     use 'rcarriga/nvim-dap-ui'                                                                                    -- Shortcuts for displaying all dap elements
     use { 'theHamsta/nvim-dap-virtual-text', config = function() require('nvim-dap-virtual-text').setup({}) end } -- Show values of variables inline during debugging
     use { 'mfussenegger/nvim-dap-python',
@@ -120,6 +121,10 @@ return require('packer').startup(function(use)
         requires = { "nvim-lua/plenary.nvim", "antoinemadec/FixCursorHold.nvim" } }
     use 'nvim-neotest/neotest-python'
     use { "andythigpen/nvim-coverage", requires = "nvim-lua/plenary.nvim", } -- TODO: not working
+
+    -- JUPYTER NOTEBOOK
+    use { "kiyoon/jupynium.nvim",
+        run = "pip3 install --user .",}
 
     -- NOTE: Style
     use 'nvim-tree/nvim-web-devicons'
