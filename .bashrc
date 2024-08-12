@@ -17,6 +17,7 @@ xhost local:$USER > /dev/null # allow zenity to access screen (cron batterywarni
 # ALIASES
 alias ba='cd ~/Documents/Obsidian_Vault/Universität/6_BA/disturbed-pointing-experiment/ && conda activate levinenv'
 alias baa='cd ~/Documents/Obsidian_Vault/Universität/6_BA/disturbed-pointing-experiment/ && conda activate levinana && jupyter notebook Analysis.ipynb'
+alias cysec='cd ~/Code/CYSEC/ && source ~/Code/cysec/bin/activate'
 
 alias ls='exa --icons --group-directories-first'
 alias lsa='exa --icons -lah --group-directories-first'
