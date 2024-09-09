@@ -1,292 +1,209 @@
 local status_ok, which_key = pcall(require, "which-key")
 if not status_ok then
-	print("blaifbaisluf")
+    print("blaifbaisluf")
     return
 end
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-local setup = {
-    plugins = {
-        marks = true, -- shows a list of your marks on ' and `
-        registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-        spelling = {
-            enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-            suggestions = 20, -- how many suggestions should be shown in the list?
-        },
-        -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-        -- No actual key bindings are created
-        presets = {
-            operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
-            motions = false, -- adds help for motions
-            text_objects = false, -- help for text objects triggered after entering an operator
-            windows = true, -- default bindings on <c-w>
-            nav = true, -- misc bindings to work with windows
-            z = true, -- bindings for folds, spelling and others prefixed with z
-            g = true, -- bindings for prefixed with g
-        },
+which_key.setup {
+    triggers = {
+        { "<leader>", mode = { "n", "v" } },
+        { "[", mode = {"n", "v"}},
+        { "]", mode = {"n", "v"}},
     },
-    -- add operators that will trigger motion and text object completion
-    -- to enable all native operators, set the preset / operators plugin above
-    -- operators = { gc = "Comments" },
-    presets = {
-        z = true,
-    },
-    key_labels = {
-        -- override the label used to display some keys. It doesn't effect WK in any other way.
-        -- For example:
-        -- ["<space>"] = "SPC",
-        -- ["<cr>"] = "RET",
-        -- ["<tab>"] = "TAB",
-    },
-    icons = {
-        breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-        separator = "➜", -- symbol used between a key and it's label
-        group = "+", -- symbol prepended to a group
-    },
-    popup_mappings = {
-        scroll_down = "<c-d>", -- binding to scroll down inside the popup
-        scroll_up = "<c-u>", -- binding to scroll up inside the popup
-    },
-    window = {
-        border = "rounded", -- none, single, double, shadow
-        position = "bottom", -- bottom, top
-        margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
-        padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
-        winblend = 0,
+    defer = function(ctx)
+        if vim.list_contains({ "d", "y" }, ctx.operator) then
+            return true
+        end
+        return vim.list_contains({ "<C-V>", "V" }, ctx.mode)
+    end,
+
+    win = {
+        padding = { 1, 1 },
+        border = "rounded",
+        wo = {
+            winblend = 10,
+        }
     },
     layout = {
         height = { min = 4, max = 25 }, -- min and max height of the columns
         width = { min = 20, max = 50 }, -- min and max width of the columns
-        spacing = 3, -- spacing between columns
-        align = "center", -- align columns left, center or right
+        spacing = 3,                    -- spacing between columns
+        align = "center",               -- align columns left, center or right
     },
-    ignore_missing = true, -- enable this to hide mappings for which you didn't specify a label
-    hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-    show_help = true, -- show help message on the command line when the popup is visible
-    triggers = "auto", -- automatically setup triggers
-    -- triggers = {"<leader>"} -- or specify a list manually
-    triggers_blacklist = {
-        -- list of mode / prefixes that should never be hooked by WhichKey
-        -- this is mostly relevant for key maps that start with a native binding
-        -- most people should not need to change this
-        n = {"s"},
-        i = { "j", "k" },
-        v = { "j", "k" },
-    },
-}
-
-local opts = {
-    mode = "n", -- NORMAL mode
-    prefix = "<leader>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = true, -- use `nowait` when creating keymaps
 }
 
 local nmappings = {
-    ["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Comment" },
-    ["-"] = { ":lua require 'dap'.toggle_breakpoint()<CR>", "Toggle Breakpoint"},
-    ["a"] = { "<cmd>lua require'harpoon.mark'.add_file()<cr>", "Add to Harpoon" },
+    { "<leader> ",  "<CMD>so<CR>",                                                                                                    desc = "Source",                nowait = true, remap = false },
+    { "<leader>-",  ":lua require 'dap'.toggle_breakpoint()<CR>",                                                                     desc = "Toggle Breakpoint",     nowait = true, remap = false },
+    { "<leader>/",  "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>",                                                  desc = "Comment",               nowait = true, remap = false },
+    { "<leader>a",  "<cmd>lua require'harpoon.mark'.add_file()<cr>",                                                                  desc = "Add to Harpoon",        nowait = true, remap = false },
+    { "<leader>e",  "<cmd>NvimTreeToggle<cr>",                                                                                        desc = "Explorer",              nowait = true, remap = false },
+    { "<leader>w",  "<cmd>w!<CR>",                                                                                                    desc = "Save",                  nowait = true, remap = false },
+    { "<leader>F",  "<cmd>Telescope live_grep theme=ivy<cr>",                                                                         desc = "Live Grep",             nowait = true, remap = false },
+    { "<leader>H",  'yiw:helpg <C-r>"<CR>',                                                                                           desc = "Get Helpgrep",          nowait = true, remap = false },
+    { "<leader>P",  "<cmd>Telescope workspaces<cr>",                                                                                  desc = "Projects/Workspaces",   nowait = true, remap = false },
+    { "<leader>W",  "<CMD>ToggleWrap<CR>",                                                                                            desc = "ToggleWrap",            nowait = true, remap = false },
+    { "<leader>Y",  '"+Y',                                                                                                            desc = "Yank Line Ext",         nowait = true, remap = false },
+    { "<leader>h",  'yiw:help |<C-r>|"<CR>',                                                                                          desc = "Get Help",              nowait = true, remap = false },
+    { "<leader>r",  "<CMD>RunInTerminal<CR>",                                                                                         desc = "RunInTerminal",         nowait = true, remap = false },
+    { "<leader>s",  ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>",                                                           desc = "Rename",                nowait = true, remap = false },
+    { "<leader>u",  "<CMD>UndoTreeToggle<CR>",                                                                                        desc = "Toggle Undotree",       nowait = true, remap = false },
+    { "<leader>x",  "<cmd>!chmod +x %<CR>",                                                                                           desc = "Make Executable",       nowait = true, remap = false },
     -- ["b"] = { "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Buffers", },
-    ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-    ["w"] = { "<cmd>w!<CR>", "Save" },
-    [" "] = { "<CMD>so<CR>", "Source" },
     -- ["q"] = { "<cmd>lua require'main.keymapfunctions'.TODOLocList()<cr>", "Todo Location list" },
     -- ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
     --[[ ["f"] = {
         "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
         "Find files",
     }, ]]
-    ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Live Grep" },
-    ["P"] = { "<cmd>Telescope workspaces<cr>", "Projects/Workspaces" },
-    ["u"] = { "<CMD>UndoTreeToggle<CR>", "Toggle Undotree" },
-    ["h"] = { 'yiw:h <C-r>"<CR>', "Get Help"},
-    ["H"] = { 'yiw:helpg <C-r>"<CR>', "Get Helpgrep"},
-    ["Y"] = { '"+Y', "Yank Line Ext"},
-    ["s"] = { [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Rename"},
-    ["x"] = { "<cmd>!chmod +x %<CR>", "Make Executable"},
-    ["r"] = { "<CMD>RunInTerminal<CR>", "RunInTerminal"},
-    ["W"] = { "<CMD>ToggleWrap<CR>", "ToggleWrap" },
 
-    d = {
-        name = "DAP",
-        b = { ":lua require'dap'.continue()<CR>1<CR><CR>", "Start/Continue" },
-        n = { ":lua require 'dap'.step_over()<CR>", "Step Over" },
-        i = { ":lua require 'dap'.step_into()<CR>", "Step Into" },
-        o = { ":lua require 'dap'.step_out()<CR>", "Step Out" },
-        x = { ":lua require 'dap'.terminate()<CR>", "Terminate" },
-        u = { ":lua require 'dapui'.toggle()<CR>", "Toggle UI" },
-        -- TODO: Logpoints and CBreakpoints
-    },
+    { "<leader>d",  group = "DAP",                                                                                                    nowait = true,                  remap = false },
+    { "<leader>db", ":lua require'dap'.continue()<CR>1<CR><CR>",                                                                      desc = "Start/Continue",        nowait = true, remap = false },
+    { "<leader>di", ":lua require 'dap'.step_into()<CR>",                                                                             desc = "Step Into",             nowait = true, remap = false },
+    { "<leader>dn", ":lua require 'dap'.step_over()<CR>",                                                                             desc = "Step Over",             nowait = true, remap = false },
+    { "<leader>do", ":lua require 'dap'.step_out()<CR>",                                                                              desc = "Step Out",              nowait = true, remap = false },
+    { "<leader>du", ":lua require 'dapui'.toggle()<CR>",                                                                              desc = "Toggle UI",             nowait = true, remap = false },
+    { "<leader>dx", ":lua require 'dap'.terminate()<CR>",                                                                             desc = "Terminate",             nowait = true, remap = false },
 
-    g = {
-        name = "Git",
-        -- TODO: Vgit?? jedenfalls lazygit
-        --[[ g = { "<cmd>lua _LAZYGIT_TOGGLE()<cr>", "Lazygit" },
-        p = { "<cmd>VGit buffer_blame_preview<cr>", "Preview Hunk" },
-        s = { "<cmd>VGit buffer_stage<cr>", "Stage buffer" },
-        u = { "<cmd>VGit buffer_unstage<cr>", "Undo Stage Hunk" },
-        h = { "<cmd>VGit buffer_history_preview<cr>", "buffer history" }, ]]
-        o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
-        b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-        c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-        --    d = {
-        --      "<cmd>Gitsigns diffthis HEAD<cr>",
-        --      "Diff",
-        --    },
-        s = { "<CMD>lua require'gitsings'.stage_hunk()<CR>", "Stage Hunk" },
-        r = { "<CMD>lua require'gitsings'.reset_hunk()<CR>", "Reset Hunk" },
-        S = { "<CMD>lua require'gitsings'.stage_buffer()<CR>", "Stage Buffer" },
-        u = { "<CMD>lua require'gitsings'.undo_stage_hunk()<CR>", "Undo Stage Hunk" },
-        R = { "<CMD>lua require'gitsings'.reset_buffer()<CR>", "Reset Buffer" },
-        p = { "<CMD>lua require'gitsings'.preview_hunk()<CR>", "Preview Hunk" },
-        l = { "<CMD>lua require'gitsings'.blame_line{full=true}<CR>", "Blame Line" },
-        L = { "<CMD>lua require'gitsings'.toggle_current_line_blame()<CR>", "Toggle Blame" },
-        d = { "<CMD>lua require'gitsings'.diffthis()<CR>", "Diff" },
-        D = { "<CMD>lua require'gitsings'.diffthis('~')<CR>", "Diff2" },
-        t = { "<CMD>lua require'gitsings'.toggle_deleted()<CR>", "Toggle Deleted" },
-    },
+    { "<leader>g",  group = "Git",                                                                                                    nowait = true,                  remap = false },
+    { "<leader>gD", "<CMD>lua require'gitsings'.diffthis('~')<CR>",                                                                   desc = "Diff2",                 nowait = true, remap = false },
+    { "<leader>gL", "<CMD>lua require'gitsings'.toggle_current_line_blame()<CR>",                                                     desc = "Toggle Blame",          nowait = true, remap = false },
+    { "<leader>gR", "<CMD>lua require'gitsings'.reset_buffer()<CR>",                                                                  desc = "Reset Buffer",          nowait = true, remap = false },
+    { "<leader>gS", "<CMD>lua require'gitsings'.stage_buffer()<CR>",                                                                  desc = "Stage Buffer",          nowait = true, remap = false },
+    { "<leader>gb", "<cmd>Telescope git_branches<cr>",                                                                                desc = "Checkout branch",       nowait = true, remap = false },
+    { "<leader>gc", "<cmd>Telescope git_commits<cr>",                                                                                 desc = "Checkout commit",       nowait = true, remap = false },
+    { "<leader>gd", "<CMD>lua require'gitsings'.diffthis()<CR>",                                                                      desc = "Diff",                  nowait = true, remap = false },
+    { "<leader>gl", "<CMD>lua require'gitsings'.blame_line{full=true}<CR>",                                                           desc = "Blame Line",            nowait = true, remap = false },
+    { "<leader>go", "<cmd>Telescope git_status<cr>",                                                                                  desc = "Open changed file",     nowait = true, remap = false },
+    { "<leader>gp", "<CMD>lua require'gitsings'.preview_hunk()<CR>",                                                                  desc = "Preview Hunk",          nowait = true, remap = false },
+    { "<leader>gr", "<CMD>lua require'gitsings'.reset_hunk()<CR>",                                                                    desc = "Reset Hunk",            nowait = true, remap = false },
+    { "<leader>gs", "<CMD>lua require'gitsings'.stage_hunk()<CR>",                                                                    desc = "Stage Hunk",            nowait = true, remap = false },
+    { "<leader>gt", "<CMD>lua require'gitsings'.toggle_deleted()<CR>",                                                                desc = "Toggle Deleted",        nowait = true, remap = false },
+    { "<leader>gu", "<CMD>lua require'gitsings'.undo_stage_hunk()<CR>",                                                               desc = "Undo Stage Hunk",       nowait = true, remap = false },
+    -- TODO: Vgit?? jedenfalls lazygit
+    --
+    -- g = { "<cmd>lua _LAZYGIT_TOGGLE()<cr>", "Lazygit" },
+    -- p = { "<cmd>VGit buffer_blame_preview<cr>", "Preview Hunk" },
+    -- s = { "<cmd>VGit buffer_stage<cr>", "Stage buffer" },
+    -- u = { "<cmd>VGit buffer_unstage<cr>", "Undo Stage Hunk" },
+    -- h = { "<cmd>VGit buffer_history_preview<cr>", "buffer history" },
+    --    d = {
+    --      "<cmd>Gitsigns diffthis HEAD<cr>",
+    --      "Diff",
+    --    },
 
-    l = {
-        name = "LSP",
-        a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-        d = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Goto definition" },
-        D = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto declaration" },
-        K = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
-        -- d = {"<cmd>Telescope lsp_document_diagnostics<cr>", "Document Diagnostics"},
-        -- w = {"<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics"},
-        f = { "<cmd>lua vim.lsp.buf.format{async = true}<cr>zz", "Format" },
-        i = { "<cmd>LspInfo<cr>", "Info" },
-        I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
-        -- j = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next Diagnostic" },
-        -- k = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
-        -- L = { "<<cmd>lua vim.diagnostic.open_float()<CR>", "float Diagnostic" },
-        -- l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
-        r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-        R = { "<cmd>lua vim.lsp.buf.references()<CR>", "References" },
-        s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
-        S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
-        z = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Implementations?" },
-        Z = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature help?" },
-    },
+    { "<leader>l",  group = "LSP",                                                                                                    nowait = true,                  remap = false },
+    { "<leader>lD", "<cmd>lua vim.lsp.buf.declaration()<CR>",                                                                         desc = "Goto declaration",      nowait = true, remap = false },
+    { "<leader>lI", "<cmd>LspInstallInfo<cr>",                                                                                        desc = "Installer Info",        nowait = true, remap = false },
+    { "<leader>lK", "<cmd>lua vim.lsp.buf.hover()<CR>",                                                                               desc = "Hover",                 nowait = true, remap = false },
+    { "<leader>lR", "<cmd>lua vim.lsp.buf.references()<CR>",                                                                          desc = "References",            nowait = true, remap = false },
+    { "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",                                                               desc = "Workspace Symbols",     nowait = true, remap = false },
+    { "<leader>lZ", "<cmd>lua vim.lsp.buf.signature_help()<CR>",                                                                      desc = "Signature help?",       nowait = true, remap = false },
+    { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>",                                                                         desc = "Code Action",           nowait = true, remap = false },
+    { "<leader>ld", "<cmd>lua vim.lsp.buf.definition()<CR>",                                                                          desc = "Goto definition",       nowait = true, remap = false },
+    { "<leader>lf", "<cmd>lua vim.lsp.buf.format{async = true}<cr>zz",                                                                desc = "Format",                nowait = true, remap = false },
+    { "<leader>li", "<cmd>LspInfo<cr>",                                                                                               desc = "Info",                  nowait = true, remap = false },
+    { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>",                                                                              desc = "Rename",                nowait = true, remap = false },
+    { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>",                                                                        desc = "Document Symbols",      nowait = true, remap = false },
+    { "<leader>lz", "<cmd>lua vim.lsp.buf.implementation()<CR>",                                                                      desc = "Implementations?",      nowait = true, remap = false },
+    -- d = {"<cmd>Telescope lsp_document_diagnostics<cr>", "Document Diagnostics"},
+    -- w = {"<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics"},
+    -- j = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next Diagnostic" },
+    -- k = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Prev Diagnostic" },
+    -- L = { "<<cmd>lua vim.diagnostic.open_float()<CR>", "float Diagnostic" },
+    -- l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
 
-    m = {
-        name = "my stuff",
-    },
+    { "<leader>q",  group = "Quickfix",                                                                                               nowait = true,                  remap = false },
+    { "<leader>qc", "<CMD>ccl<CR>",                                                                                                   desc = "Hide List",             nowait = true, remap = false },
+    { "<leader>qd", "<cmd>lua vim.diagnostic.setqflist()<cr>",                                                                        desc = "Search Diagnostics",    nowait = true, remap = false },
+    { "<leader>ql", "<CMD>cw<CR>",                                                                                                    desc = "Show List",             nowait = true, remap = false },
+    { "<leader>qt", "<CMD>TodoQuickFix<CR>",                                                                                          desc = "Search Todo-Comments",  nowait = true, remap = false },
+    { "<leader>qx", "cexpr []<CR><CMD>ccl<CR>",                                                                                       desc = "Empty List",            nowait = true, remap = false },
 
-    q = {
-        name = "Quickfix",
-        d = { "<cmd>lua vim.diagnostic.setqflist()<cr>", "Search Diagnostics" },
-        t = { "<CMD>TodoQuickFix<CR>", "Search Todo-Comments" },
-        l = { "<CMD>cw<CR>", "Show List" },
-        c = { "<CMD>ccl<CR>", "Hide List" },
-        x = { "cexpr []<CR><CMD>ccl<CR>", "Empty List" },
-    },
+    { "<leader>R",  group = "Refactoring",                                                                                            nowait = true,                  remap = false },
+    { "<leader>RB", "<CMD>lua require('refactoring').refactor('Extract Block To File')<CR>",                                          desc = "Extract Block to File", nowait = true, remap = false },
+    { "<leader>RF", "<CMD>lua require('refactoring').refactor('Inline Function')<CR>",                                                desc = "Inline Fct",            nowait = true, remap = false },
+    { "<leader>RV", "<CMD>lua require('refactoring').refactor('Inline Variable')<CR>",                                                desc = "Inline Variable",       nowait = true, remap = false },
+    { "<leader>Rb", "<CMD>lua require('refactoring').refactor('Extract Block')<CR>",                                                  desc = "Extract Block",         nowait = true, remap = false },
 
-    R = {
-        name = "Refactoring",
-        F = { "<CMD>lua require('refactoring').refactor('Inline Function')<CR>", "Inline Fct" },
-        V = { "<CMD>lua require('refactoring').refactor('Inline Variable')<CR>", "Inline Variable" },
-        b = { "<CMD>lua require('refactoring').refactor('Extract Block')<CR>", "Extract Block" },
-        B = { "<CMD>lua require('refactoring').refactor('Extract Block To File')<CR>", "Extract Block to File" },
-    },
+    { "<leader>S",  group = "Search",                                                                                                 nowait = true,                  remap = false },
+    { "<leader>SB", "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>", desc = "Buffers",               nowait = true, remap = false },
+    { "<leader>SC", "<cmd>Telescope commands<cr>",                                                                                    desc = "Commands",              nowait = true, remap = false },
+    { "<leader>SM", "<cmd>Telescope man_pages<cr>",                                                                                   desc = "Man Pages",             nowait = true, remap = false },
+    { "<leader>SR", "<cmd>Telescope registers<cr>",                                                                                   desc = "Registers",             nowait = true, remap = false },
+    { "<leader>Sb", "<cmd>Telescope git_branches<cr>",                                                                                desc = "Checkout branch",       nowait = true, remap = false },
+    { "<leader>Sc", "<cmd>Telescope colorscheme<cr>",                                                                                 desc = "Colorscheme",           nowait = true, remap = false },
+    { "<leader>Sh", "<cmd>Telescope help_tags<cr>",                                                                                   desc = "Find Help",             nowait = true, remap = false },
+    { "<leader>Sk", "<cmd>Telescope keymaps<cr>",                                                                                     desc = "Keymaps",               nowait = true, remap = false },
+    { "<leader>Sr", "<cmd>Telescope oldfiles<cr>",                                                                                    desc = "Open Recent File",      nowait = true, remap = false },
+    { "<leader>St", "<cmd>TodoTelescope<CR>",                                                                                         desc = "Todo-Comments",         nowait = true, remap = false },
 
-    S = {
-        name = "Search",
-        b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-        c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
-        h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
-        M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-        r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-        R = { "<cmd>Telescope registers<cr>", "Registers" },
-        k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-        C = { "<cmd>Telescope commands<cr>", "Commands" },
-        B = { "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Buffers", },
-        t = { "<cmd>TodoTelescope<CR>", "Todo-Comments"},
-    },
+    { "<leader>t",  group = "Test",                                                                                                   nowait = true,                  remap = false },
+    { "<leader>ts", ":lua require'neotest'.summary.toggle()<CR><C-W>l",                                                               desc = "Toggle Summary",        nowait = true, remap = false },
 
-    t = {
-        name = "Test",
-        s = { ":lua require'neotest'.summary.toggle()<CR><C-W>l", "Toggle Summary" },
-    },
-
-    T = {
-        name = "Terminal",
-        -- TODO: Terminal sachen
-        n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
-        u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
-        t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
-        p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
-        f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
-        h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
-        v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
-    },
+    { "<leader>T",  group = "Terminal",                                                                                               nowait = true,                  remap = false },
+    { "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>",                                                                            desc = "Float",                 nowait = true, remap = false },
+    { "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>",                                                               desc = "Horizontal",            nowait = true, remap = false },
+    { "<leader>Tn", "<cmd>lua _NODE_TOGGLE()<cr>",                                                                                    desc = "Node",                  nowait = true, remap = false },
+    { "<leader>Tp", "<cmd>lua _PYTHON_TOGGLE()<cr>",                                                                                  desc = "Python",                nowait = true, remap = false },
+    { "<leader>Tt", "<cmd>lua _HTOP_TOGGLE()<cr>",                                                                                    desc = "Htop",                  nowait = true, remap = false },
+    { "<leader>Tu", "<cmd>lua _NCDU_TOGGLE()<cr>",                                                                                    desc = "NCDU",                  nowait = true, remap = false },
+    { "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>",                                                                 desc = "Vertical",              nowait = true, remap = false },
 }
 
-local vopts = {
-    mode = "v", -- VISUAL mode
-    prefix = "<leader>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = true, -- use `nowait` when creating keymaps
-}
+local vmappings = { {
+    mode = { "v" },
 
-local vmappings = {
-    ["/"] = { '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', "Comment" },
-    ["h"] = { 'y<ESC>:h <C-r>"<CR>', "Get help"},
-    ["H"] = { 'y<ESC>:helpg <C-r>"<CR>', "Get helpgrep"},
+    { "<leader>/",  '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', desc = "Comment",                  nowait = true, remap = false },
+    { "<leader>H",  'y<ESC>:helpg <C-r>"<CR>',                                                       desc = "Get helpgrep",             nowait = true, remap = false },
+    { "<leader>h",  'y<ESC>:help |<C-r>|"<CR>',                                                      desc = "Get help",                 nowait = true, remap = false },
 
-    r = {
-        f = { "<CMD>lua require('refactoring').refactor('Extract Function')<CR>", "Extract Function" },
-        e = { "<CMD>lua require('refactoring').refactor('Extract Function To File')<CR>", "Extract Function to File" },
-        v = { "<CMD>lua require('refactoring').refactor('Extract Variable')<CR>", "Extract Variable" },
-        V = { "<CMD>lua require('refactoring').refactor('Inline Variable')<CR>", "Inline Variable" },
-    },
+    { "<leader>R",  group = "Refactoring" },
+    { "<leader>RV", "<CMD>lua require('refactoring').refactor('Inline Variable')<CR>",               desc = "Inline Variable",          nowait = true, remap = false },
+    { "<leader>Re", "<CMD>lua require('refactoring').refactor('Extract Function To File')<CR>",      desc = "Extract Function to File", nowait = true, remap = false },
+    { "<leader>Rf", "<CMD>lua require('refactoring').refactor('Extract Function')<CR>",              desc = "Extract Function",         nowait = true, remap = false },
+    { "<leader>Rv", "<CMD>lua require('refactoring').refactor('Extract Variable')<CR>",              desc = "Extract Variable",         nowait = true, remap = false },
 
-    z = {
-        name = "Folds",
-        f = { ":'<,'>fold<CR>", "create Fold" },
-    },
-}
+    { "<leader>z",  group = "Folds",                                                                 nowait = true,                     remap = false },
+    { "<leader>zf", ":'<,'>fold<CR>",                                                                desc = "create Fold",              nowait = true, remap = false },
+} }
 
 local braccopts = {
     mode = "n",
     prefix = "]",
     buffer = nil,
-    silent = true, -- use `silent` when creating keymaps
+    silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
-    nowait = true, -- use `nowait` when creating keymaps
+    nowait = true,  -- use `nowait` when creating keymaps
 }
 
-local braccmappings = {
-    ["d"] = { '<CMD>lua vim.diagnostic.goto_next()<CR>', "LSP Diagnostic"},
-    ["b"] = { "<CMD>lua require('goto-breakpoints').next()<CR>", "Breakpoint" },
-    ["S"] = { "<CMD>lua require('goto-breakpoints').stopped()<CR>", "Debug stopped"},
-    ["c"] = { "<CMD> lua require'gitsigns'.next_hunk()<CR>", "Git Hunk" },
-    ["t"] = { "<CMD> lua require'todo-comments'.jump_next()<CR>", "Todo-Comment" }
-}
+local braccmappings = { {
+    { "[b", "<CMD>lua require('goto-breakpoints').prev()<CR>",  desc = "Breakpoint",     nowait = true, remap = false },
+    { "[c", "<CMD> lua require'gitsigns'.prev_hunk()<CR>",      desc = "Git Hunk",       nowait = true, remap = false },
+    { "[d", "<CMD>lua vim.diagnostic.goto_prev()<CR>",          desc = "LSP Diagnostic", nowait = true, remap = false },
+    { "[t", "<CMD> lua require'todo-comments'.jump_prev()<CR>", desc = "Todo-Comment",   nowait = true, remap = false },
+} }
 
 local bracoopts = {
     mode = "n",
     prefix = "[",
     buffer = nil,
-    silent = true, -- use `silent` when creating keymaps
+    silent = true,  -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
-    nowait = true, -- use `nowait` when creating keymaps
+    nowait = true,  -- use `nowait` when creating keymaps
 }
 
-local bracomappings = {
-    ["d"] = { '<CMD>lua vim.diagnostic.goto_prev()<CR>', "LSP Diagnostic"},
-    ["b"] = { "<CMD>lua require('goto-breakpoints').prev()<CR>", "Breakpoint" },
-    ["c"] = { "<CMD> lua require'gitsigns'.prev_hunk()<CR>", "Git Hunk" },
-    ["t"] = { "<CMD> lua require'todo-comments'.jump_prev()<CR>", "Todo-Comment" }
-}
+local bracomappings = { {
+    { "]S", "<CMD>lua require('goto-breakpoints').stopped()<CR>", desc = "Debug stopped",  nowait = true, remap = false },
+    { "]b", "<CMD>lua require('goto-breakpoints').next()<CR>",    desc = "Breakpoint",     nowait = true, remap = false },
+    { "]c", "<CMD> lua require'gitsigns'.next_hunk()<CR>",        desc = "Git Hunk",       nowait = true, remap = false },
+    { "]d", "<CMD>lua vim.diagnostic.goto_next()<CR>",            desc = "LSP Diagnostic", nowait = true, remap = false },
+    { "]t", "<CMD> lua require'todo-comments'.jump_next()<CR>",   desc = "Todo-Comment",   nowait = true, remap = false },
+} }
 
-which_key.setup(setup)
-which_key.register(nmappings, opts)
-which_key.register(vmappings, vopts)
-which_key.register(bracomappings, bracoopts)
-which_key.register(braccmappings, braccopts)
+which_key.add(nmappings)
+which_key.add(vmappings)
+which_key.add(bracomappings)
+which_key.add(braccmappings)
