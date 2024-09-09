@@ -26,7 +26,7 @@ lspcnfg.eslint.setup({
   end,
 })
 
-lspcnfg.tsserver.setup({})
+lspcnfg.ts_ls.setup({})
 
 -- Fix Undefined global 'vim'
 lspcnfg.lua_ls.setup {
