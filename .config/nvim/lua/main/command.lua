@@ -4,9 +4,9 @@ vim.api.nvim_create_user_command('CdParentUnderPwd',
         local pwd = vim.fn.expand('%:h')
         local newd = nil
         if pwd ~= "." then
-            local i,j = tostring(pwd):find ".-/"
+            local i, j = tostring(pwd):find ".-/"
             if i ~= nil then
-                newd = string.sub(tostring(pwd), i, j-1)
+                newd = string.sub(tostring(pwd), i, j - 1)
             else
                 newd = pwd
             end
@@ -19,16 +19,17 @@ vim.api.nvim_create_user_command('CdParentUnderPwd',
 
 -- Opens a new tab and runs the file according to its filetype in a terminal emulator.
 vim.api.nvim_create_user_command('RunInTerminal',
-    function ()
+    function()
         local file = vim.fn.expand('%')
-        local extension = vim.fn.expand('%:e')
+        local extension = vim.fn.expand('%:e:e')
         local commands = {}
-        commands["py"] = {cmd = "python", term = true}
-        commands["sh"] = {cmd = "bash", term = true}
-        commands["js"] = {cmd = "node", term = true}
-        commands["html"] = {cmd = "firefox --new-window", after = 'tabclose', term = true}
-        commands["css"] = {cmd = "firefox --new-window", file= 'index.html', after = 'tabclose', term = true}
-        commands["tex"] = {cmd = "VimtexCompile"}
+        commands["py"] = { cmd = "python", term = true }
+        commands["sh"] = { cmd = "bash", term = true }
+        commands["js"] = { cmd = "node", term = true }
+        commands["html"] = { cmd = "firefox --new-window", after = 'tabclose', term = true }
+        commands["css"] = { cmd = "firefox --new-window", file = 'index.html', after = 'tabclose', term = true }
+        commands["tex"] = { cmd = "VimtexCompile" }
+        commands["ju.py"] = { cmd = "MyJupynium" }
         -- If there is action for filetype
         if commands[extension] then
             local cmd = commands[extension]["cmd"]
@@ -60,7 +61,7 @@ vim.api.nvim_create_user_command('RunInTerminal',
     {})
 
 vim.api.nvim_create_user_command('ToggleWrap',
-    function ()
+    function()
         local status = vim.o.wrap
         print(status)
         if status then
@@ -71,22 +72,30 @@ vim.api.nvim_create_user_command('ToggleWrap',
     end,
     {})
 
+vim.api.nvim_create_user_command('MyJupynium',
+    function()
+        vim.cmd("JupyniumStartAndAttachToServer")
+        vim.wait(3000)
+        vim.cmd("JupyniumStartSync")
+    end,
+    {})
+
 -- Set mapping for git-conflict when a conflict is detected
 vim.api.nvim_create_autocmd('User', {
-  pattern = 'GitConflictDetected',
-  callback = function()
-    vim.notify('Conflict detected in '..vim.fn.expand('<afile>'))
-    vim.keymap.set('n', 'cww', function()
-      engage.conflict_buster()
-      create_buffer_local_mappings()
-    end)
-  end
+    pattern = 'GitConflictDetected',
+    callback = function()
+        vim.notify('Conflict detected in ' .. vim.fn.expand('<afile>'))
+        vim.keymap.set('n', 'cww', function()
+            engage.conflict_buster()
+            create_buffer_local_mappings()
+        end)
+    end
 })
 
 -- Startup shit to go around bugs
-vim.api.nvim_create_autocmd({"VimEnter"}, {
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
     command = "source ~/.config/nvim/after/plugin/lsp.lua"
 })
-vim.api.nvim_create_autocmd({"VimEnter"}, {
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
     command = "lua require'flash'.setup()"
 })
