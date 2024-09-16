@@ -52,7 +52,7 @@ map("n", "<A-j>", "<C-w>j", opts)
 map("n", "<A-k>", "<C-w>k", opts)
 map("n", "<A-v>", "<C-w>v<C-w>l", opts)
 map("n", "<A-x>", "<C-w>s<C-w>j", opts)
-map("n", "<C-q>", "<C-w>q", opts)
+map("n", "<C-q>", ":bd<CR>", opts)
 -- window sizes
 map('n', '<A-,>', '<C-w><')
 map('n', '<A-.>', '<C-w>>')
