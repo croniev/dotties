@@ -52,7 +52,7 @@ lspcnfg.pylsp.setup {
                 mccabe = { enabled = false },
                 pycodestyle = {
                     enabled = true,
-                    ignore = { 'E501', 'F401' }
+                    ignore = { 'E501', 'F401', 'E302', 'E305' }
                 },
                 flake8 = { enabled = false },
                 isort = { enabled = true },
