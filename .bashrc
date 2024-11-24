@@ -26,6 +26,14 @@ alias lsta='exa --icons --tree --long'
 alias dots='/usr/bin/git --git-dir=$HOME/dotties.git/ --work-tree=$HOME'
 # alias nvim='exec /usr/bin/kitty nvim'
 
+# FUNCTIONS
+function pdfclean() {
+    filename=$1
+    pdftk "$filename" output - uncompress | sed '/^\/Annots/d' | pdftk - output "${filename%.*}_clean.pdf" compress
+}
+
+export -f pdfclean
+
 # -----------------------------------------------------------------------------------------------------------------
 
 # don't put duplicate lines or lines starting with space in the history.
