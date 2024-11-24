@@ -39,7 +39,8 @@ return require('packer').startup(function(use)
     use("folke/zen-mode.nvim")
     use("eandrju/cellular-automaton.nvim")
     use("goolord/alpha-nvim")
-    use { 'folke/flash.nvim' }
+    use { 'folke/flash.nvim'}
+
     -- TODO: term
     use {'m4xshen/hardtime.nvim', requires = {"MunifTanjim/nui.nvim"},
     config = function () require'hardtime'.setup() end}
