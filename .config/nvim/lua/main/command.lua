@@ -30,6 +30,7 @@ vim.api.nvim_create_user_command('RunInTerminal',
         commands["css"] = { cmd = "firefox --new-window", file = 'index.html', after = 'tabclose', term = true }
         commands["tex"] = { cmd = "VimtexCompile" }
         commands["ju.py"] = { cmd = "MyJupynium" }
+        commands["md"] = { cmd = "pandoc " .. file .. " -o " ..  file:gsub(".md", ".pdf") .. " && okular " .. file:gsub(".md", ".pdf"), file = '', after = 'tabclose', term = true}
         -- If there is action for filetype
         if commands[extension] then
             local cmd = commands[extension]["cmd"]
